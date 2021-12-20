@@ -43,7 +43,7 @@ class PrendreController extends AbstractController
             return $this->redirectToRoute('vaccination');
         }
 
-        return $this->render('prendre/vaccination.html.twig', ['form' => $form->createView()]);
+        return $this->render('dashboards/prendre/vaccination.html.twig', ['form' => $form->createView()]);
         
     }
 
@@ -64,10 +64,10 @@ class PrendreController extends AbstractController
             $prendres = $this->getDoctrine()
             ->getRepository(Prendre::class)->findBy(["vaccin"=>$vaccin]);
             
-            return $this->render('prendre/rapport_vaccination.html.twig', ['form' => $form->createView(),'prendres'=> $prendres]);
+            return $this->render('dashboards/prendre/rapport_vaccination.html.twig', ['form' => $form->createView(),'prendres'=> $prendres]);
         }
         
-        return $this->render('prendre/rapport_vaccination.html.twig', ['form' => $form->createView(),
+        return $this->render('dashboards/prendre/rapport_vaccination.html.twig', ['form' => $form->createView(),
             'prendres' => $prendres]);
        
         

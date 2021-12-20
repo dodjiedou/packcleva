@@ -47,7 +47,7 @@ class ContracterController extends AbstractController
 
         
        
-        return $this->render('contracter/enregistrement_cas_maladie.html.twig',[
+        return $this->render('dashboards/contracter/enregistrement_cas_maladie.html.twig',[
             'form' => $form->createView()]);
     }
 
@@ -59,7 +59,7 @@ class ContracterController extends AbstractController
         $contracters = $this->getDoctrine()
             ->getRepository(Contracter::class)->findAll();
        
-        return $this->render('contracter/consultation_soin_medicaux.html.twig',[
+        return $this->render('dashboards/contracter/consultation_soin_medicaux.html.twig',[
             'contracters' => $contracters]);
     }
 
@@ -71,7 +71,7 @@ class ContracterController extends AbstractController
             $contracter = $this->getDoctrine()
             ->getRepository(Contracter::class)->find($id);
             
-        return $this->render('contracter/show_consultation.html.twig', compact('contracter'));
+        return $this->render('dashboards/contracter/show_consultation.html.twig', compact('contracter'));
     }
 
     #[Route('/contracter_maladie', name: 'contracter_maladie')]
@@ -91,11 +91,11 @@ class ContracterController extends AbstractController
             $contracters = $this->getDoctrine()
             ->getRepository(Contracter::class)->findBy(["maladie"=>$maladie]);
             
-            return $this->render('contracter/contracter_maladiex.html.twig', ['form' => $form->createView(),'contracters'=> $contracters,'maladie'=> $maladie]);
+            return $this->render('dashboards/contracter/contracter_maladiex.html.twig', ['form' => $form->createView(),'contracters'=> $contracters,'maladie'=> $maladie]);
         }
         
         
-        return $this->render('contracter/contracter_maladiex.html.twig', ['form' => $form->createView(),
+        return $this->render('dashboards/contracter/contracter_maladiex.html.twig', ['form' => $form->createView(),
             'contracters' => $contracters,'maladie'=> $maladie]);
        
         
@@ -137,10 +137,10 @@ class ContracterController extends AbstractController
             //"date"=> ">=$date1" && "date"=> "<=$date2"
            // return $this->redirectToRoute('rapport_individuel', ['contracters'=> $contracters]);
             
-            return $this->render('contracter/rapport_individuel.html.twig', ['form' => $form->createView(),'contracters'=> $contracters,'beneficiaire'=> $beneficiaire]);
+            return $this->render('dashboards/contracter/rapport_individuel.html.twig', ['form' => $form->createView(),'contracters'=> $contracters,'beneficiaire'=> $beneficiaire]);
             //'beneficiaire'=> $beneficiaire
         }
-        return $this->render('contracter/rapport_individuel.html.twig', ['form' => $form->createView(),'contracters'=> $contracters,'beneficiaire'=> $beneficiaire]);
+        return $this->render('dashboards/contracter/rapport_individuel.html.twig', ['form' => $form->createView(),'contracters'=> $contracters,'beneficiaire'=> $beneficiaire]);
     }
 
 }

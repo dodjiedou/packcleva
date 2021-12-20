@@ -31,7 +31,7 @@ class BeneficiaireController extends AbstractController
     {
         $beneficiaires = $this->getDoctrine()
             ->getRepository(Beneficiaire::class)->findAll();
-        return $this->render('beneficiaire/list_beneficiaire.html.twig',[
+        return $this->render('dashboards/beneficiaire/list_beneficiaire.html.twig',[
             'beneficiaires' => $beneficiaires]);
         
     }
@@ -55,7 +55,7 @@ class BeneficiaireController extends AbstractController
             return $this->redirectToRoute('creerbeneficiaire');
         }
 
-        return $this->render('beneficiaire/creerbeneficiaire.html.twig', [
+        return $this->render('dashboards/beneficiaire/creerbeneficiaire.html.twig', [
             'form' => $form->createView()]);
          
     }
@@ -68,13 +68,13 @@ class BeneficiaireController extends AbstractController
             //$benef = $this->getDoctrine()
             //->getRepository(Beneficiaire::class)->find($id);
             
-        return $this->render('beneficiaire/afficherbeneficiaire.html.twig', compact('benef'));
+        return $this->render('dashboards/beneficiaire/afficherbeneficiaire.html.twig', compact('benef'));
     }
 
     #[Route('/edit_beneficiaire', name: 'edit_beneficiaire')]
     public function edit(): Response
     {
-        return $this->render('beneficiaire/edit_beneficiaire.html.twig');
+        return $this->render('dashboards/beneficiaire/edit_beneficiaire.html.twig');
     }
 
     #[Route('/delete_beneficiaire/{num}', name: 'delete_beneficiaire')]
@@ -87,7 +87,7 @@ class BeneficiaireController extends AbstractController
         $entityManager->flush();
         $beneficiaires = $this->getDoctrine()
             ->getRepository(Beneficiaire::class)->findAll();
-        return $this->render('beneficiaire/list_beneficiaire.html.twig',[
+        return $this->render('dashboards/beneficiaire/list_beneficiaire.html.twig',[
             'beneficiaires' => $beneficiaires]);
     }
 }
