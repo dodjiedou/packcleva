@@ -18,15 +18,11 @@ class Prendre
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", length=15)
      */
     private $datep;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Beneficiaire::class, inversedBy="prendres")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $beneficiaire;
+    
 
     /**
      * @ORM\ManyToOne(targetEntity=Vaccin::class, inversedBy="prendres")
@@ -34,19 +30,55 @@ class Prendre
      */
     private $vaccin;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $dose;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Beneficiaire::class, inversedBy="prendres")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $beneficiaire;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDatep(): ?\DateTimeInterface
+    public function getDatep(): ?string
     {
         return $this->datep;
     }
 
-    public function setDatep(\DateTimeInterface $datep): self
+    public function setDatep(string $datep): self
     {
         $this->datep = $datep;
+
+        return $this;
+    }
+
+
+    public function getVaccin(): ?Vaccin
+    {
+        return $this->vaccin;
+    }
+
+    public function setVaccin(?Vaccin $vaccin): self
+    {
+        $this->vaccin = $vaccin;
+
+        return $this;
+    }
+
+    public function getDose(): ?int
+    {
+        return $this->dose;
+    }
+
+    public function setDose(int $dose): self
+    {
+        $this->dose = $dose;
 
         return $this;
     }
@@ -59,18 +91,6 @@ class Prendre
     public function setBeneficiaire(?Beneficiaire $beneficiaire): self
     {
         $this->beneficiaire = $beneficiaire;
-
-        return $this;
-    }
-
-    public function getVaccin(): ?Vaccin
-    {
-        return $this->vaccin;
-    }
-
-    public function setVaccin(?Vaccin $vaccin): self
-    {
-        $this->vaccin = $vaccin;
 
         return $this;
     }

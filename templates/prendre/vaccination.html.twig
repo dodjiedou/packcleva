@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PrendreController!{% endblock %}
+
+{% block body %}
+
+
+<div class="row ">
+    <div >
+    <a href="{{ path('rapport_vaccination') }}" class=" float-end btn btn-primary  active my-3" role="button" title="Lien 1">rapport de vaccination</a>
+    </div>
+</div>  
+
+<div class="row my-5">
+    <div class="col-6 mx-auto">
+    <h1 class='text-info display-4 my-5 text-center'>VACCINATION</h1>
+     
+        {{form_start(form)}}
+
+        {{ form(form) }}
+
+        <!--<button type="submit" class="btn btn-primary w-100">Valider</button>-->
+
+
+    {{form_end(form)}}
+    </div>
+</div>  
+
+{% endblock %}

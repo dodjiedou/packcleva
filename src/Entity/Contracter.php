@@ -20,7 +20,7 @@ class Contracter
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", length=20)
      */
     private $date;
 
@@ -40,12 +40,12 @@ class Contracter
     private $produitPrescrit;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", length=20)
      */
     private $debutHospitalisation;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", length=20)
      */
     private $finHospitalisation;
 
@@ -89,12 +89,12 @@ class Contracter
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?string
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(string $date): self
     {
         $this->date = $date;
 
@@ -137,24 +137,24 @@ class Contracter
         return $this;
     }
 
-    public function getDebutHospitalisation(): ?\DateTimeInterface
+    public function getDebutHospitalisation(): ?string
     {
         return $this->debutHospitalisation;
     }
 
-    public function setDebutHospitalisation(\DateTimeInterface $debutHospitalisation): self
+    public function setDebutHospitalisation(string $debutHospitalisation): self
     {
         $this->debutHospitalisation = $debutHospitalisation;
 
         return $this;
     }
 
-    public function getFinHospitalisation(): ?\DateTimeInterface
+    public function getFinHospitalisation(): ?string
     {
         return $this->finHospitalisation;
     }
 
-    public function setFinHospitalisation(\DateTimeInterface $finHospitalisation): self
+    public function setFinHospitalisation(string $finHospitalisation): self
     {
         $this->finHospitalisation = $finHospitalisation;
 

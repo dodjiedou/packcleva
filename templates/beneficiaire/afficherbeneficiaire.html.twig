@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BeneficiaireController!{% endblock %}
+
+{% block body %}
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-md-8">
+			<div class="card">
+				<div class="card-header">Fiche d'un
+					beneficiaire</div>
+						<div class="card-body">
+							
+							<h4>Nom</h4>
+							<p>{{ benef.nom }}</p>
+							
+							<h4>Prenom</h4>
+							<p>{{ benef.prenom }}</p>
+
+							<h4>Telephone</h4>
+							<p>{{ benef.telephone }}</p>
+
+							<h4>Email</h4>
+							<p>{{ benef.email }}</p>
+
+							<h4>Description</h4>
+							<p>{{ benef.description }}</p>
+
+							<h4>Numero</h4>
+							<p>{{ benef.numero }}</p>
+
+							<h4>Date de naissance</h4>
+							<p>{{ benef.dateNaissance }}</p>
+
+							<h4>Sexe</h4>
+							<p>{{ benef.sexe }}</p>
+
+							<h4>Classe</h4>
+							<p>{{ benef.classe }}</p>
+
+							<h4>Religion</h4>
+							<p>{{ benef.religion }}</p>
+
+							<h4>Nom du tuteur</h4>
+							<p>{{ benef.nomTuteur }}</p>
+
+							<h4>Village/ville</h4>
+							<p>{{ benef.village }}</p>
+
+							<h4>Rue</h4>
+							<p>{{ benef.rue }}</p>
+
+							<h4>Rang Occupé</h4>
+							<p>{{ benef.rangOccupe }}</p>
+
+							<h4>Classe au CDE</h4>
+							<p>{{ benef.classeCde }}</p>
+
+						</div>			
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

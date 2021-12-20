@@ -5,14 +5,15 @@ namespace App\Entity;
 use App\Repository\BeneficiaireRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints\DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=BeneficiaireRepository::class)
  */
-class Beneficiaire
+class Beneficiaire 
 {
-    /**
+     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -22,10 +23,36 @@ class Beneficiaire
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $numero;
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=30)
+     */
+    private $prenom;
 
     /**
      * @ORM\Column(type="string", length=20)
+     */
+    private $telephone;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $description;
+
+    
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $numero;
+
+    /**
+     * @ORM\Column(type="string", length=15)
      */
     private $dateNaissance;
 
@@ -76,20 +103,82 @@ class Beneficiaire
     private $contracters;
 
     /**
-     * @ORM\OneToMany(targetEntity=Prendre::class, mappedBy="beneficiaire")
+     * @ORM\OneToMany(targetEntity=Prendre::class, mappedBy="beneficiaire", orphanRemoval=true)
      */
     private $prendres;
+
 
     public function __construct()
     {
         
         $this->contracters = new ArrayCollection();
         $this->prendres = new ArrayCollection();
+       
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(string $telephone): self
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
     }
 
     public function getNumero(): ?string
@@ -242,8 +331,6 @@ class Beneficiaire
         return $this;
     }
 
-    
-
     /**
      * @return Collection|Prendre[]
      */
@@ -273,4 +360,18 @@ class Beneficiaire
 
         return $this;
     }
+
+    
+    public function getAge($date) 
+    {
+        $age = date('Y') - date('Y', strtotime($date));
+        if (date('md') < date('md', strtotime($date))) {
+        return $age - 1;
+        }
+         return $age;
+    }
+
+    
+
+    
 }

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BeneficiaireController!{% endblock %}
+
+{% block body %}
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-md-8">
+			<div class="card">
+				<div class="card-header">Fiche d'un
+					beneficiaire</div>
+						<div class="card-body">
+								
+							<h4>Produits prescrits et administrés pour les soins</h4>
+							<p>{{ contracter.produitPrescrit}}</p>
+							
+							<h4>Début de l'hospitalisation</h4>
+							<p>{{ contracter.debutHospitalisation}}</p>
+							
+							<h4>Fin de l'hospitalisation</h4>
+							<p>{{ contracter.finHospitalisation}}</p>
+
+							<h4>Montant des soins et analyses</h4>
+							<p>{{ contracter.montantSoin }}</p>
+
+							<h4>Etat du bénéficiaire après manifestation de la maladie</h4>
+							<p>{{ contracter.etatBeneficiaire }}</p>
+
+							<h4>Nombre de visites éffectuées par la CDE dans le cadre de la maladie</h4>
+							<p>{{contracter.nombreVisite }}</p>
+
+							<h4>Nombre de fois que le staff a organisé le prayer support dans le cadre de la maladie</h4>
+							<p>{{ contracter.nombrePrayerSupport }}</p>
+
+
+						</div>			
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
