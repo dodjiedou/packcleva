@@ -4,10 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Personne;
 use App\Entity\Beneficiaire;
-use App\Form\BeneficiaireFormType;
 use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Response;
+use App\Form\BeneficiaireFormType;
+use App\Repository\BeneficiaireRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -38,7 +39,7 @@ class BeneficiaireController extends AbstractController
     ): Response
     {
         $beneficiaire = new Beneficiaire();
-        $beneficiaire->setAuthor($this->getUser());
+        // $beneficiaire->setAuthor($this->getUser());
         $form = $this->createForm(BeneficiaireType::class, $beneficiaire);
         $form->handleRequest($request);
 
@@ -71,7 +72,7 @@ class BeneficiaireController extends AbstractController
     {
         return $this->render('dashboards/beneficiaire/show.html.twig', [
             'beneficiaire' => $beneficiaire,
-            'slug' => $beneficiaire->getSlug(),
+            // 'slug' => $beneficiaire->getSlug(),
         ]);
     }
 
