@@ -47,4 +47,41 @@ class BeneficiaireRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function findByAge($ageMin,$ageMax,$effectif, $id)
+    {
+       
+        $tab=[];
+        $tab2=[];
+        $i=0;
+        $em = $this->getEntityManager();  
+        $beneficiaires = $this->findAll();
+        foreach ($beneficiaires as $key => $nom) {
+            
+            $age=$nom->getAge($nom->getDateNaissance());
+            if ($age>=$ageMin && $age<=$ageMax && $i<$effectif) {
+               $nom->setClassecde($id);
+               $em->persist($nom);
+               $em->flush();
+               $tab[$i]=$nom;
+               $i=$i+1;
+            }
+           
+         }
+         if ($effectif>$i) {
+            for ($j=0; $j < $i; $j++) { 
+            $tab2[$j]=$tab[$j];
+            }
+         } else {
+            for ($j=0; $j < $effectif; $j++) { 
+            $tab2[$j]=$tab[$j];
+             }
+         }
+         
+         
+
+    return $tab2;      
+    }
+
 }

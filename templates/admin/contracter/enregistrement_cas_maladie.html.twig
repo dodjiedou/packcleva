@@ -1,0 +1,48 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block wrapper %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Cas de maladie</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ path('admin') }}">Home</a></li>
+              <li class="breadcrumb-item active">maladie</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+  {% endblock %}
+
+{% block body %}
+  
+<div class="row ">
+  
+  <div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card card card-info">
+        <div class="card-header text-center"><h3>ENREGISTREMENT DE CAS DE MALADIE</h3></div>
+            <div class="card-body">
+             
+              {{form_start(form)}}
+
+              {{ form(form) }}
+
+              <!--<button type="submit" class="btn btn-primary w-100">Valider</button>-->
+
+              {{form_end(form)}}
+         </div>     
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

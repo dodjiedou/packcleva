@@ -40,16 +40,7 @@ class Beneficiaire
      */
     private $email;
 
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private $description;
-
     
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $numero;
 
     /**
      * @ORM\Column(type="string", length=15)
@@ -76,25 +67,13 @@ class Beneficiaire
      */
     private $nomTuteur;
 
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $village;
 
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private $rue;
 
     /**
      * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $rangOccupe;
 
-    /**
-     * @ORM\Column(type="string", length=30)
-     */
-    private $classeCde;
 
     
     /**
@@ -106,6 +85,24 @@ class Beneficiaire
      * @ORM\OneToMany(targetEntity=Prendre::class, mappedBy="beneficiaire", orphanRemoval=true)
      */
     private $prendres;
+
+    
+    /**
+     * @ORM\Column(type="string", length=60)
+     */
+    private $adresse;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Classe::class, inversedBy="beneficiaires")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $classecde;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="beneficiaires")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $categorie;
 
 
     public function __construct()
@@ -169,29 +166,8 @@ class Beneficiaire
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
 
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    public function getNumero(): ?string
-    {
-        return $this->numero;
-    }
-
-    public function setNumero(string $numero): self
-    {
-        $this->numero = $numero;
-
-        return $this;
-    }
+   
 
     public function getDateNaissance(): ?string
     {
@@ -217,6 +193,7 @@ class Beneficiaire
         return $this;
     }
 
+
     public function getClasse(): ?string
     {
         return $this->classe;
@@ -228,6 +205,9 @@ class Beneficiaire
 
         return $this;
     }
+   
+
+   
 
     public function getReligion(): ?string
     {
@@ -253,29 +233,7 @@ class Beneficiaire
         return $this;
     }
 
-    public function getVillage(): ?string
-    {
-        return $this->village;
-    }
-
-    public function setVillage(string $village): self
-    {
-        $this->village = $village;
-
-        return $this;
-    }
-
-    public function getRue(): ?string
-    {
-        return $this->rue;
-    }
-
-    public function setRue(?string $rue): self
-    {
-        $this->rue = $rue;
-
-        return $this;
-    }
+   
 
     public function getRangOccupe(): ?string
     {
@@ -285,18 +243,6 @@ class Beneficiaire
     public function setRangOccupe(?string $rangOccupe): self
     {
         $this->rangOccupe = $rangOccupe;
-
-        return $this;
-    }
-
-    public function getClasseCde(): ?string
-    {
-        return $this->classeCde;
-    }
-
-    public function setClasseCde(string $classeCde): self
-    {
-        $this->classeCde = $classeCde;
 
         return $this;
     }
@@ -369,6 +315,44 @@ class Beneficiaire
         return $age - 1;
         }
          return $age;
+    }
+
+   
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getClassecde(): ?Classe
+    {
+        return $this->classecde;
+    }
+
+    public function setClassecde(?Classe $classecde): self
+    {
+        $this->classecde = $classecde;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
     }
 
     

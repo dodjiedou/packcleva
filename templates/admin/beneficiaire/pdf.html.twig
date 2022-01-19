@@ -1,0 +1,144 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block wrapper %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Liste des bénéficiaires</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ path('admin') }}">Home</a></li>
+              <li class="breadcrumb-item active">beneficiaire</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+  {% endblock %}
+
+{% block body %}
+    
+         
+    <div class="py-2 px-3">
+      <div class="row">
+      <div class="col col-md-auto">
+         <a href="{{ path('creerbeneficiaire') }}" class="btn btn-primary btn-md  rounded  " role="button" title="Lien 1">Ajouter un bénéficiaire</a>
+        </div>
+        <div class="col col-md-auto">
+          <a href="{{ path('addcategorie') }}" class=" btn btn-info btn-md btn-md btn-block" role="button" title="Lien 1">Ajouter une catégorie</a> 
+        </div>
+      </div>
+   </div>
+
+   
+    
+
+        
+         <!-- .card -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">DataTable with default features</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                     <th class="">N°</th>
+                  <th lass=""">NOM ET PRENOM</th>
+                  <th class="">SEXE</th>
+                  <th class="">DATE DE NAISSANCE</th>
+                  <th class="">AGE</th>
+                  <th class="">RELIGION</th>
+                  <th class="">NOM DE LA TUTRICE</th>
+                  <th class="">RUE/VILLAGE</th>
+                  <th class="">TELEPHONE</th>
+                
+                 
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for beneficiaire in beneficiaires %}
+
+                  <tr>
+
+                    <td class="">TG00{{ beneficiaire.id }}</td>
+
+                    <td class="px-4 py-2 w-1/4">{{ beneficiaire.nom }} {{ beneficiaire.prenom }}</td>
+
+                    <td class="">{{ beneficiaire.sexe }}</td>
+
+                    <td class="">{{beneficiaire.dateNaissance }}</td>
+
+                    <td class="">{{ beneficiaire.getAge(beneficiaire.dateNaissance) }}</td>
+
+                    <td class="">{{ beneficiaire.religion }}</td>
+
+                    <td class="">{{ beneficiaire.nomTuteur }}</td>
+
+                    <td class="">{{ beneficiaire.adresse }}</td>
+
+                    <td class="">{{ beneficiaire.telephone }}</td>
+                    
+                  </tr>
+                {% endfor %}
+                  </tbody>
+                  
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+         
+     
+    
+
+
+
+
+{% endblock %}
+
+
+
+  {% block javascripts %}
+
+      <!-- jQuery -->
+      <script src="admin/plugins/jquery/jquery.min.js"></script>
+      <!-- Bootstrap 4 -->
+      <script src="admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <!-- DataTables  & Plugins -->
+      <script src="admin/plugins/datatables/jquery.dataTables.min.js"></script>
+      <script src="admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+      <script src="admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+      <script src="admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+      <script src="admin/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+      <script src="admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+      <script src="admin/plugins/jszip/jszip.min.js"></script>
+      <script src="admin/plugins/pdfmake/pdfmake.min.js"></script>
+      <script src="admin/plugins/pdfmake/vfs_fonts.js"></script>
+      <script src="admin/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+      <script src="admin/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+      <script src="admin/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+      <!-- AdminLTE App -->
+      <script src="admin/dist/js/adminlte.min.js"></script>
+      <!-- AdminLTE for demo purposes -->
+      <script src="admin/dist/js/demo.js"></script>
+      <!-- Page specific script -->
+      <script>
+        $(function () {
+          $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["pdf", "print"]
+          }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+          
+        });
+      </script>
+
+{% endblock %}
+
+

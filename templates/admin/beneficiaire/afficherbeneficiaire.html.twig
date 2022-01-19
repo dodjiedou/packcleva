@@ -1,0 +1,79 @@
+{% extends 'admin/base2.html.twig' %}
+
+{% block wrapper %}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Beneficiaire</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ path('list_beneficiaire') }}">Retour</a></li>
+              <li class="breadcrumb-item active">Beneficiaire</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->    
+     {% endblock %}    
+
+        {% block body %}
+
+        <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card  card-info">
+                <div class="card-header text-center">Fiche d'un
+                    beneficiaire</div>
+                        <div class="card-body">
+                            
+                            <h4>Nom</h4>
+                            <p>{{ benef.nom }}</p>
+                            
+                            <h4>Prenom</h4>
+                            <p>{{ benef.prenom }}</p>
+
+                            <h4>Telephone</h4>
+                            <p>{{ benef.telephone }}</p>
+
+                            <h4>Email</h4>
+                            <p>{{ benef.email }}</p>
+
+                            <h4>Date de naissance</h4>
+                            <p>{{ benef.dateNaissance }}</p>
+
+                            <h4>Sexe</h4>
+                            <p>{{ benef.sexe }}</p>
+
+                            <h4>Classe</h4>
+                            <p>{{ benef.classe }}</p>
+
+                            <h4>Religion</h4>
+                            <p>{{ benef.religion }}</p>
+
+                            <h4>Nom du tuteur</h4>
+                            <p>{{ benef.nomTuteur }}</p>
+
+                            <h4>Village/ville</h4>
+                            <p>{{ benef.adresse }}</p>
+
+                            <h4>Rang Occupé</h4>
+                            <p>{{ benef.rangOccupe }}</p>
+
+                            <h4>Classe au CDE</h4>
+                            <p>{{ benef.classeCde.nom }}</p>
+
+                        </div>          
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        {% endblock %}
+
+       

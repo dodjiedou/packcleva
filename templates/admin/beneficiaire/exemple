@@ -1,0 +1,753 @@
+
+ <td class="">
+                    <input type="checkbox" cols="1">
+                     <option valeur="{{ beneficiaire.id }}"></option>
+                    </input>
+                    </td>
+
+
+        
+
+        public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+       
+         $builder->add('vaccin', EntityType::class, [
+                'class' => Vaccin::class,
+                'choice_label' => 'nom',
+               //'label' => 'vaccin',
+                'placeholder' => 'choisir'
+            ]);
+
+         
+        $formModifier = function (FormInterface $form, Vaccin $vaccin = null) 
+        {
+
+            $prendres = (null === $vaccin) ? [] : $vaccin->getPrendres();
+
+            $form->add('prendre', EntityType::class, [
+                'class' => Prendre::class,
+                'placeholder' => 'choisir',
+                //'choice_label' => 'id',
+                'label' => 'prendre',
+                'choices' => $prendres]);
+        };
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($formModifier) {
+                $data = $event->getData();s
+                $formModifier($event->getForm(), $data->getVaccin());
+            }
+        )
+
+
+        $builder->get('vaccin')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+                $vaccin = $event->getForm()->getData();
+                $formModifier($event->getForm()->getParent(), $vaccin);
+            }
+        );
+    
+    }
+
+
+    $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) {
+                $form = $event->getForm();
+               // $data = $event->getData();
+                $vaccin = $event->getData();
+                $prendres = null === $vaccin ? [] : $vaccin->getPrendres();
+
+                $form->add('prendre', EntityType::class, [
+                    'class' => Prendre::class,
+                    'placeholder' => 'choisir',
+                    'choices' => $prendres
+                ]);
+            }
+        );
+
+
+        {{ form_start(form) }}
+    {{ form_row(form.vaccin) }}    
+    {{ form_row(form.beneficiaire) }} 
+  {{ form_end(form) }}
+
+<script>
+var $vaccin = $('#meetup_sport');
+
+$vaccin.change(function() {
+  
+  var $form = $(this).closest('form');
+ 
+  var data = {};
+  data[$vaccin.attr('name')] = $vaccin.val();
+  
+  $.ajax({
+    url : $form.attr('action'),
+    type: $form.attr('method'),
+    data : data,
+    complete: function(html) {
+      
+      $('#meetup_position').replaceWith(
+        
+        $(html.responseText).find('#meetup_position')
+      );
+      
+    }
+  });
+});
+</script>
+
+
+    <div class=" px-4">
+      <div class="row">
+        <div class="col col-md-auto">
+         <h3> {{ form_start(form) }}
+          {{ form_row(form.vaccin) }} 
+          {{ form_row(form.beneficiaire) }}     
+          {{ form_end(form) }}</h3>
+        </div> 
+      </div>
+    </div>
+
+
+         {{ form_start(form) }}
+          {{ form_row(form.vaccin) }} 
+          {{ form_row(form.beneficiaire) }}     
+          {{ form_end(form) }}
+
+          <script>
+          var $vaccin = $('#meetup_sport');
+
+          $vaccin.change(function() {
+            
+            var $form = $(this).closest('form');
+           
+            var data = {};
+            data[$vaccin.attr('name')] = $vaccin.val();
+            
+            $.ajax({
+              url : $form.attr('action'),
+              type: $form.attr('method'),
+              data : data,
+              complete: function(html) {
+                
+                $('#meetup_position').replaceWith(
+                  
+                  $(html.responseText).find('#meetup_position')
+                );
+                
+              }
+            });
+          });
+          </script>
+  <div class=" px-4">
+      <div class="row">
+        <div class="col col-md-auto">
+         <h3> {{ form_start(form) }}
+          {{ form_row(form.vaccin) }}    
+          {{ form_end(form) }}</h3>
+        </div> 
+      </div>
+    </div>
+
+
+
+    =>
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $beneficiaire = $form->get("beneficiaire")->getData();
+            $date1 = $form->get("date1")->getData();
+            $date2 = $form->get("date2")->getData();
+
+            $id=$beneficiaire->getId();
+            $contracters = $this->getDoctrine()
+            ->getRepository(Contracter::class)->findBy(["beneficiaire"=>$beneficiaire]);
+            //"date"=> ">=$date1" && "date"=> "<=$date2"
+           // return $this->redirectToRoute('rapport_individuel', ['contracters'=> $contracters]);
+            
+            return $this->render('contracter/rapport_individuel.html.twig', ['form' => $form->createView(),'contracters'=> $contracters]);
+        <div class=" px-4">
+      <div class="row">
+        <div class="col col-md-auto">
+         <h3> {{ form_start(form) }}
+          {{ form_row(form.vaccin) }}     
+          {{ form_end(form) }}</h3>
+        </div> 
+      </div>
+    </div>
+
+    // /**
+    //  * @return Contracter[] Returns an array of Contracter objects
+    //  */
+
+    <td class="">{{line.mal.nom}}</td>
+                    <td class="">{{line.benefF}}</td>
+                    <td class="">{{line.benefM}}</td>
+                    <td class="">{{line.benefM}} + {{line.benefF}}</td>
+                    <td class="">{{line.casF}}</td>
+                    <td class="">{{line.casM}}</td>
+                    <td class="">{{line.casF}} +{{line.casM}}</td>
+                    <td class="">{{line.mal.nom}}</td>
+
+
+
+                    /* /**
+ * @Route("/dashboard/beneficiaire")
+ */
+class BeneficiaireController extends AbstractController
+{
+
+    /**
+     * @Route("/as", name="beneficiaire_index", methods={"GET"})
+     */
+    public function index(BeneficiaireRepository $beneficiaireRepository): Response
+    {
+        return $this->render('dashboards/beneficiaire/index.html.twig', [
+            'beneficiaires' => $beneficiaireRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/new", name="beneficiaire_new", methods={"GET","POST"})
+     */
+    public function new(
+        Request $request,
+        BeneficiaireRepository $beneficiaireRepository
+    ): Response
+    {
+        $beneficiaire = new Beneficiaire();
+        // $beneficiaire->setAuthor($this->getUser());
+        $form = $this->createForm(BeneficiaireType::class, $beneficiaire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($beneficiaire);
+            $entityManager->flush();
+
+            $this->addFlash("success","Bénéficiaire ".$beneficiaire->getPrenom()." ".$beneficiaire->getNom()." créé(e) avec succès !");
+
+            return $this->redirectToRoute(
+                'beneficiaire_index', 
+                [
+                    'beneficiaires' => $beneficiaireRepository->findAll()
+                ], 
+                Response::HTTP_SEE_OTHER
+            );
+        }
+
+        return $this->renderForm('dashboards/beneficiaire/new.html.twig', [
+            'beneficiaire' => $beneficiaire,
+            'form' => $form,
+        ]);
+    }
+
+    /**
+     * @Route("/show/{slug}", name="beneficiaire_show", methods={"GET"})
+     */
+    public function show(Beneficiaire $beneficiaire): Response
+    {
+        return $this->render('dashboards/beneficiaire/show.html.twig', [
+            'beneficiaire' => $beneficiaire,
+            // 'slug' => $beneficiaire->getSlug(),
+        ]);
+    }
+
+    /**
+     * @Route("/edit/{slug}", name="beneficiaire_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, Beneficiaire $beneficiaire): Response
+    {
+        $form = $this->createForm(BeneficiaireType::class, $beneficiaire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash("success","Bénéficiaire ".$beneficiaire->getPrenom()." ".$beneficiaire->getNom()." modifié(e) avec succès !");
+
+            return $this->redirectToRoute('beneficiaire_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('dashboards/beneficiaire/edit.html.twig', [
+            'beneficiaire' => $beneficiaire,
+            'form' => $form,
+        ]);
+    }
+
+    /**
+     * @Route("/delete/{slug}", name="beneficiaire_delete", methods={"POST"})
+     */
+public function delete(Request $request, Beneficiaire $beneficiaire): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$beneficiaire->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($beneficiaire);
+            $entityManager->flush();
+            $this->addFlash("success","Bénéficiaire ".$beneficiaire->getPrenom()." ".$beneficiaire->getNom()." supprimé(e) avec succès !");
+        }
+
+        return $this->redirectToRoute('beneficiaire_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+}
+
+
+{% block body %}
+
+    <div class="py-3 px-4">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <em>Classe</em> : {{classe1.nom}} <em>Categorie</em> : {{classe1.categorie.nom}}  
+            <a href="{{ path('classe') }}" class="btn btn-primary float-end font-bold " role="button" title="Lien 1">Retour</a>        
+        </h2>
+    </div>
+
+    <div class="px-4">
+   <div class="card py-4 px-4 col-7 ">
+      <div class="row ">
+      
+        <div class="col col-md-auto">
+         {{ form_start(form) }}
+          {{ form_row(form.agemin) }}       
+        </div>
+        <div class="col col-md-auto">
+          {{ form_row(form.agemax) }} 
+        </div>
+        <div class="col col-md-auto ">
+          {{ form_row(form.effectif) }} 
+          {{ form_end(form) }}
+        </div>
+        
+      </div>
+   </div>
+</div>
+  
+      <div class=" px-3 py-4 ">
+          <div class="table-responsive-sm">
+            <table class="table    table-hover ">
+              <thead >
+                <tr class="table-secondary">
+                  <th class=""></th>
+                  <th class="">N°</th>
+                  <th lass=""">NOM ET PRENOM</th>
+                  <th class="">SEXE</th>
+                  <th class="">DATE DE NAISSANCE</th>
+                  <th class="">AGE</th>
+                  <th class="">RELIGION</th>
+                  <th class="">NOMV  DE TUTEUR/TUTRICE</th>
+                  <th class="">RUE/VILLAGE</th>
+                  <th class="">TELEPHONE</th>
+                  <!--<th class=""></th>
+                  <th class=""></th>
+                  <th class=""></th>-->
+                </tr>
+              </thead>
+              <tbody>
+                {% for beneficiaire in beneficiaires %}
+
+                  <tr>
+
+                    <td class="">
+                    <input type="checkbox" cols="1">
+                     <option valeur="{{ beneficiaire.id }}"></option>
+                    </input>
+                    </td>
+
+
+                    <td class="">TG00{{ beneficiaire.id }}</td>
+
+                    <td class="px-4 py-2 w-1/4">{{ beneficiaire.nom }} {{ beneficiaire.prenom }}</td>
+
+                    <td class="">{{ beneficiaire.sexe }}</td>
+
+                    <td class="">{{beneficiaire.dateNaissance }}</td>
+
+                    <td class="">{{ beneficiaire.getAge(beneficiaire.dateNaissance) }}</td>
+
+                    <td class="">{{ beneficiaire.religion }}</td>
+
+                    <td class="">{{ beneficiaire.nomTuteur }}</td>
+
+                    <td class="">{{ beneficiaire.adresse }}</td>
+
+                    <td class="">{{ beneficiaire.telephone }}</td>
+
+                    
+
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+    </div>
+  </div>  
+  
+
+{% endblock %}
+
+
+
+
+ <div class="py-3 px-4">
+      <div class="row">
+        <div class="col col-md-auto">
+          <a href="{{ path('edit_beneficiaire') }}" class="btn btn-primary py-2 px-4 rounded  " role="button" title="Lien 1">Voir</a>
+        </div>
+        <div class="col col-md-auto">
+          <a href="{{ path('edit_beneficiaire') }}" class="btn btn-warning btn-lg btn-block" role="button" title="Lien 1">Modifier</a> 
+        </div>
+        <div class="col ">
+          <a href="{{ path('edit_beneficiaire' ) }}" class="btn btn-danger mb-2 btn-lg " role="button" title="Lien 1">Supprimer</a> 
+        </div>
+      </div>
+   </div>
+
+ <!--Mon code --> 
+
+      <div class="row">
+        <div class="py-3 px-4">
+          <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Liste des Beneficiaires  
+                <a href="{{ path('creerbeneficiaire') }}" class="btn btn-primary float-end font-bold " role="button" title="Lien 1">Ajouter un beneficiaire</a>        
+          </h2>
+        </div>
+      </div>
+           
+      <div class="py-3 px-4">
+          <div class="row">
+            <div class="col col-md-auto">
+              <a href="{{ path('edit_beneficiaire') }}" class="btn btn-primary py-2 px-4 rounded  " role="button" title="Lien 1">Voir</a>
+            </div>
+            <div class="col col-md-auto">
+              <a href="{{ path('edit_beneficiaire') }}" class="btn btn-warning btn-lg btn-block" role="button" title="Lien 1">Modifier</a> 
+            </div>
+            <div class="col ">
+              <a href="{{ path('edit_beneficiaire' ) }}" class="btn btn-danger mb-2 btn-lg " role="button" title="Lien 1">Supprimer</a> 
+            </div>
+          </div>
+      </div>
+
+       
+      <div class="container border px-3 ">
+              <div class="table-responsive-sm">
+                <table class="table    table-hover ">
+                  <thead >
+                    <tr class="table-secondary">
+                      <th class=""></th>
+                      <th class="">N°</th>
+                      <th lass="">NOM ET PRENOM</th>
+                      <th class="">SEXE</th>
+                      <th class="">DATE DE NAISSANCE</th>
+                      <th class="">AGE</th>
+                      <th class="">RELIGION</th>
+                      <th class="">NOMV  DE LA TUTRICE</th>
+                      <th class="">RUE/VILLAGE</th>
+                      <th class="">TELEPHONE</th>
+                      <!--<th class=""></th>
+                      <th class=""></th>
+                      <th class=""></th>-->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for beneficiaire in beneficiaires %}
+
+                      <tr>
+
+                        <td class="">
+                        <input type="checkbox" cols="1">
+                         <option valeur="{{ beneficiaire.id }}"></option>
+                        </input>
+                        </td>
+
+
+                        <td class="">TG00{{ beneficiaire.id }}</td>
+
+                        <td class="px-4 py-2 w-1/4">{{ beneficiaire.nom }} {{ beneficiaire.prenom }}</td>
+
+                        <td class="">{{ beneficiaire.sexe }}</td>
+
+                        <td class="">{{beneficiaire.dateNaissance }}</td>
+
+                        <td class="">{{ beneficiaire.getAge(beneficiaire.dateNaissance) }}</td>
+
+                        <td class="">{{ beneficiaire.religion }}</td>
+
+                        <td class="">{{ beneficiaire.nomTuteur }}</td>
+
+                        <td class="">{{ beneficiaire.adresse }}</td>
+
+                        <td class="">{{ beneficiaire.telephone }}</td>
+
+
+
+                        <!--<td class=""><a href="{{ path('showbeneficiaire', {"num": beneficiaire.id} ) }}" class="btn btn-primary py-2 px-4 rounded  " role="button" title="Lien 1">Voir</a> </td>
+
+                        <td class="">
+                        <a href="{{ path('edit_beneficiaire') }}" class="btn btn-warning btn-lg btn-block" role="button" title="Lien 1">Modifier</a> </td>
+
+                        <td class="">
+                        <a href="{{ path('delete_beneficiaire',{"num":beneficiaire.id} ) }}" class="btn btn-danger mb-2 btn-lg " role="button" title="Lien 1">Supprimer</a> </td>-->
+
+
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+        </div>
+      </div>  
+    <!--/Mon code -->      
+
+
+    <div class="  px-4 col-3 ">
+      <div class="row ">
+        <div class="py-2 col col-md-auto">
+         {{ form_start(form) }}
+          <h3>{{ form_row(form.vaccin) }} </h3>       
+        </div>
+        <div class="py-5 col col-md-auto">
+          <h3>{{ form_row(form.save) }}     
+          {{ form_end(form) }}
+        </div>   
+      </div>
+   </div>
+
+
+   <div class="container border">
+      <div class=" px-3 ">
+          <div class="table-responsive-lg">
+            <table class="table table-hover table-bordered px-4 ">
+              <thead  class="table-secondary">
+
+               <tr class="">
+                  
+                  <th class="text-center">Date</th>
+
+                  <th class="text-center">Maladie diagnostiquée</th>
+
+                  <th class="text-center">Catégorie maladie</th>
+
+                  <th class="text-center">Information sur le résultat d'analyse</th>
+
+                  <th class="text-center">Manifestation de la maladie</th>
+
+                  <th class="text-center">Produits prescrits et administrés pour les soin</th>
+
+                  <th class="text-center">Début de l'hospitalisation</th>
+
+                  <th class="text-center">Fin de l'hospitalisation</th>
+
+                  <th class="text-center">Montant des soins et analyses</th>
+
+                  <th class="">Etat du bénéficiaire après manifestation de la maladie</th>
+
+                  <th class="">Nombre de visites éffectuées par la CDE dans le cadre de la maladie</th>
+
+                  <th class="">Nombre de fois que le staff a organisé le prayer support dans le cadre de la maladie</th>
+               </tr>
+              </thead>
+              <tbody>
+
+             
+
+              {% if contracters %}
+                
+                  {% for contracter in contracters %}
+                  
+                  <tr>
+
+                    <td class="">{{contracter.date}}</td>
+
+                     <td class="px-4 py-2 w-1/4">{{ contracter .maladie.nom }} </td>
+
+                    <td class="">{{ contracter .maladie.categorie }}</td>
+
+                    <td class="">{{contracter .infoAnalyse}}</td>
+
+                    <td class="">{{ contracter .manifestationMaladie }}</td>
+
+                    <td class="">{{contracter .produitPrescrit }}</td>
+
+                    <td class="">{{contracter .debutHospitalisation }}</td>
+
+                    <td class="">{{contracter .finHospitalisation }}</td>
+
+                    <td class="">{{contracter .montantSoin }}</td>
+
+                    <td class="">{{contracter .etatBeneficiaire }}</td>
+
+                    <td class="">{{contracter .nombreVisite }}</td>
+
+                    <td class="">{{contracter .nombrePrayerSupport }}</td>
+                    
+                {% endfor %}
+                {% endif %}
+                
+              </tbody>
+            </table>
+    </div>
+  </div>  
+  </div>  
+
+<!--<div class="card">
+      <div class="card-header">
+        <h3 class="card-title">DataTable with default features</h3>
+      </div>
+       <!-- /.card-header -->
+        <div class="card-body">
+       <!--<div class=" py-4 ">
+          <div class="table-responsive-sm">-->
+            <table  id="example1" class="table table-hover px-3 py-4  ">
+              <thead >
+                <tr class="table-secondary">
+                  <th class="">N°</th>
+                  <th lass=""">NOM ET PRENOM</th>
+                  <th class="">SEXE</th>
+                  <th class="">DATE DE NAISSANCE</th>
+                  <th class="">AGE</th>
+                  <th class="">RELIGION</th>
+                  <th class="">NOM DE LA TUTRICE</th>
+                  <th class="">RUE/VILLAGE</th>
+                  <th class="">TELEPHONE</th>
+                 <th colspan="3" class="text-center">ACTIONS</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                {% for beneficiaire in beneficiaires %}
+
+                  <tr>
+
+                    <td class="">TG00{{ beneficiaire.id }}</td>
+
+                    <td class="px-4 py-2 w-1/4">{{ beneficiaire.nom }} {{ beneficiaire.prenom }}</td>
+
+                    <td class="">{{ beneficiaire.sexe }}</td>
+
+                    <td class="">{{beneficiaire.dateNaissance }}</td>
+
+                    <td class="">{{ beneficiaire.getAge(beneficiaire.dateNaissance) }}</td>
+
+                    <td class="">{{ beneficiaire.religion }}</td>
+
+                    <td class="">{{ beneficiaire.nomTuteur }}</td>
+
+                    <td class="">{{ beneficiaire.adresse }}</td>
+
+                    <td class="">{{ beneficiaire.telephone }}</td>
+
+                    <td class=""><a href="{{ path('showbeneficiaire', {"num": beneficiaire.id} ) }}" class="btn btn-primary btn-sm rounded  " role="button" title="Lien 1"><i class="fas fa-folder"></i>Voir</a> </td>
+
+                    <td class="">
+                    <a href="{{ path('contracter') }}" class="btn btn-warning btn-sm btn-block" role="button" title="Lien 1"> <i class="fas fa-pencil-alt"></i>Modifier</a> </td>
+
+                    <td class="">
+                    <a href="{{ path('contracter' ) }}" class="btn btn-danger mb-2 btn-sm " role="button" title="Lien 1">  <i class="fas fa-trash"></i>Supprimer</a> </td>
+
+                    
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+    </div>
+  </div> --> 
+
+
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    <div class="py-3 px-4">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <em>Classe</em> : {{classe1.nom}} <em>Categorie</em> : {{classe1.categorie.nom}}  
+            <a href="{{ path('classe') }}" class="btn btn-primary float-end font-bold " role="button" title="Lien 1">Retour</a>        
+        </h2>
+    </div>
+
+    <div class="px-4">
+   <div class="card py-4 px-4 col-7 ">
+      <div class="row ">
+      
+        <div class="col col-md-auto">
+         {{ form_start(form) }}
+          {{ form_row(form.agemin) }}       
+        </div>
+        <div class="col col-md-auto">
+          {{ form_row(form.agemax) }} 
+        </div>
+        <div class="col col-md-auto ">
+          {{ form_row(form.effectif) }} 
+          {{ form_end(form) }}
+        </div>
+        
+      </div>
+   </div>
+</div>
+  
+      <div class=" px-3 py-4 ">
+          <div class="table-responsive-sm">
+            <table class="table    table-hover ">
+              <thead >
+                <tr class="table-secondary">
+                  <th class=""></th>
+                  <th class="">N°</th>
+                  <th lass=""">NOM ET PRENOM</th>
+                  <th class="">SEXE</th>
+                  <th class="">DATE DE NAISSANCE</th>
+                  <th class="">AGE</th>
+                  <th class="">RELIGION</th>
+                  <th class="">NOMV  DE TUTEUR/TUTRICE</th>
+                  <th class="">RUE/VILLAGE</th>
+                  <th class="">TELEPHONE</th>
+                  <!--<th class=""></th>
+                  <th class=""></th>
+                  <th class=""></th>-->
+                </tr>
+              </thead>
+              <tbody>
+                {% for beneficiaire in beneficiaires %}
+
+                  <tr>
+
+                    <td class="">
+                    <input type="checkbox" cols="1">
+                     <option valeur="{{ beneficiaire.id }}"></option>
+                    </input>
+                    </td>
+
+
+                    <td class="">TG00{{ beneficiaire.id }}</td>
+
+                    <td class="px-4 py-2 w-1/4">{{ beneficiaire.nom }} {{ beneficiaire.prenom }}</td>
+
+                    <td class="">{{ beneficiaire.sexe }}</td>
+
+                    <td class="">{{beneficiaire.dateNaissance }}</td>
+
+                    <td class="">{{ beneficiaire.getAge(beneficiaire.dateNaissance) }}</td>
+
+                    <td class="">{{ beneficiaire.religion }}</td>
+
+                    <td class="">{{ beneficiaire.nomTuteur }}</td>
+
+                    <td class="">{{ beneficiaire.adresse }}</td>
+
+                    <td class="">{{ beneficiaire.telephone }}</td>
+
+                    
+
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+    </div>
+  </div>  
+  
+
+{% endblock %}

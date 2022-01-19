@@ -1,0 +1,93 @@
+{% extends 'admin/base2.html.twig' %}
+
+{% block wrapper %}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">{{classe1.nom}}</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ path('classe') }}">Retour</a></li>
+              <li class="breadcrumb-item active">{{classe1.nom}}</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    {% endblock %}
+
+                
+
+        {% block body %}
+
+         <div class="py-3 px-4">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <em>Classe</em> : {{classe1.nom}} <em>Categorie</em> : {{classe1.categorie.nom}}  
+                  
+        </h2>
+    </div>
+
+   
+      <div class=" px-3 py-4 ">
+          <div class="table-responsive-sm">
+            <table class="table    table-hover ">
+              <thead >
+                <tr class="table-secondary">
+      
+                  <th class="">N°</th>
+                  <th lass="">NOM ET PRENOM</th>
+                  <th class="">SEXE</th>
+                  <th class="">DATE DE NAISSANCE</th>
+                  <th class="">AGE</th>
+                  <th class="">RELIGION</th>
+                  <th class="">NOMV  DE TUTEUR/TUTRICE</th>
+                  <th class="">RUE/VILLAGE</th>
+                  <th class="">TELEPHONE</th>
+                  <!--<th class=""></th>
+                  <th class=""></th>
+                  <th class=""></th>-->
+                </tr>
+              </thead>
+              <tbody>
+                {% for beneficiaire in beneficiaires %}
+
+                  <tr>
+
+                    
+
+                    <td class="">{{ beneficiaire.id }}</td>
+
+                    <td class="px-4 py-2 w-1/4">{{ beneficiaire.nom }} {{ beneficiaire.prenom }}</td>
+
+                    <td class="">{{ beneficiaire.sexe }}</td>
+
+                    <td class="">{{beneficiaire.dateNaissance }}</td>
+
+                    <td class="">{{ beneficiaire.getAge(beneficiaire.dateNaissance) }}</td>
+
+                    <td class="">{{ beneficiaire.religion }}</td>
+
+                    <td class="">{{ beneficiaire.nomTuteur }}</td>
+
+                    <td class="">{{ beneficiaire.adresse }}</td>
+
+                    <td class="">{{ beneficiaire.telephone }}</td>
+
+                    
+
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+    </div>
+  </div>  
+  
+        {% endblock %}
+
+        

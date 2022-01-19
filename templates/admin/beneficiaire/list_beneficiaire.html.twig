@@ -1,0 +1,115 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block wrapper %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Liste des bénéficiaires</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ path('admin') }}">Home</a></li>
+              <li class="breadcrumb-item active">beneficiaire</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+  {% endblock %}
+
+{% block body %}
+    
+         
+    <div class="py-2 px-3">
+      <div class="row">
+      <div class="col col-md-auto">
+         <a href="{{ path('creerbeneficiaire') }}" class="btn btn-primary btn-md  rounded  " role="button" title="Lien 1">Ajouter un bénéficiaire</a>
+        </div>
+        <div class="col col-md-auto">
+          <a href="{{ path('addcategorie') }}" class=" btn btn-info btn-md btn-md btn-block" role="button" title="Lien 1">Ajouter une catégorie</a> 
+        </div>
+      </div>
+   </div>
+
+   
+    
+
+        <!--<div class="card">
+      <div class="card-header">
+        <h3 class="card-title">DataTable with default features</h3>
+      </div>
+       <!-- /.card-header -->
+        <div class="card-body">
+       <!--<div class=" py-4 ">
+          <div class="table-responsive-sm">-->
+            <table  id="example1" class="table table-hover px-3 py-4  ">
+              <thead >
+                <tr class="table-secondary">
+                  <th class="">N°</th>
+                  <th lass=""">NOM ET PRENOM</th>
+                  <th class="">SEXE</th>
+                  <th class="">DATE DE NAISSANCE</th>
+                  <th class="">AGE</th>
+                  <th class="">RELIGION</th>
+                  <th class="">NOM DE LA TUTRICE</th>
+                  <th class="">RUE/VILLAGE</th>
+                  <th class="">TELEPHONE</th>
+                 <th colspan="3" class="text-center">ACTIONS</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                {% for beneficiaire in beneficiaires %}
+
+                  <tr>
+
+                    <td class="">TG00{{ beneficiaire.id }}</td>
+
+                    <td class="px-4 py-2 w-1/4">{{ beneficiaire.nom }} {{ beneficiaire.prenom }}</td>
+
+                    <td class="">{{ beneficiaire.sexe }}</td>
+
+                    <td class="">{{beneficiaire.dateNaissance }}</td>
+
+                    <td class="">{{ beneficiaire.getAge(beneficiaire.dateNaissance) }}</td>
+
+                    <td class="">{{ beneficiaire.religion }}</td>
+
+                    <td class="">{{ beneficiaire.nomTuteur }}</td>
+
+                    <td class="">{{ beneficiaire.adresse }}</td>
+
+                    <td class="">{{ beneficiaire.telephone }}</td>
+
+                    <td class=""><a href="{{ path('showbeneficiaire', {"num": beneficiaire.id} ) }}" class="btn btn-primary btn-sm rounded  " role="button" title="Lien 1"><i class="fas fa-folder"></i>Voir</a> </td>
+
+                    <td class="">
+                    <a href="{{ path('contracter') }}" class="btn btn-warning btn-sm btn-block" role="button" title="Lien 1"> <i class="fas fa-pencil-alt"></i>Modifier</a> </td>
+
+                    <td class="">
+                    <a href="{{ path('contracter' ) }}" class="btn btn-danger mb-2 btn-sm " role="button" title="Lien 1">  <i class="fas fa-trash"></i>Supprimer</a> </td>
+
+                    
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+    </div>
+  </div> --> 
+
+
+
+
+
+
+{% endblock %}
+
+
+
+  
+
+

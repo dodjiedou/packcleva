@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClasseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,10 +24,43 @@ class Classe
      */
     private $nom;
 
+    
+    
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\ManyToMany(targetEntity=Cours::class, mappedBy="classes")
+     */
+    private $cours;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Beneficiaire::class, mappedBy="classecde")
+     */
+    private $beneficiaires;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="classes")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $categorie;
+
+    /**
+     * @ORM\Column(type="string", length=60)
+     */
+    private $annee;
+
+    /**
+     * @ORM\OneToMany(targetEntity=RapportAbsence::class, mappedBy="classe")
+     */
+    private $rapportAbsences;
+
+    
+
+    public function __construct()
+    {
+        
+        $this->cours = new ArrayCollection();
+        $this->beneficiaires = new ArrayCollection();
+        $this->rapportAbsences = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -44,14 +79,126 @@ class Classe
         return $this;
     }
 
-    public function getCategorie(): ?string
+   
+    /**
+     * @return Collection|Cours[]
+     */
+    public function getCours(): Collection
+    {
+        return $this->cours;
+    }
+
+    public function addCour(Cours $cour): self
+    {
+        if (!$this->cours->contains($cour)) {
+            $this->cours[] = $cour;
+            $cour->addClass($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCour(Cours $cour): self
+    {
+        if ($this->cours->removeElement($cour)) {
+            $cour->removeClass($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Beneficiaire[]
+     */
+    public function getBeneficiaires(): Collection
+    {
+        return $this->beneficiaires;
+    }
+
+    public function addBeneficiaire(Beneficiaire $beneficiaire): self
+    {
+        if (!$this->beneficiaires->contains($beneficiaire)) {
+            $this->beneficiaires[] = $beneficiaire;
+            $beneficiaire->setClassecde($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBeneficiaire(Beneficiaire $beneficiaire): self
+    {
+        if ($this->beneficiaires->removeElement($beneficiaire)) {
+            // set the owning side to null (unless already changed)
+            if ($beneficiaire->getClassecde() === $this) {
+                $beneficiaire->setClassecde(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Categorie
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Categorie $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
     {
         return $this->categorie;
     }
 
-    public function setCategorie(string $categorie): self
+    public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getAnnee(): ?string
+    {
+        return $this->annee;
+    }
+
+    public function setAnnee(string $annee): self
+    {
+        $this->annee = $annee;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RapportAbsence[]
+     */
+    public function getRapportAbsences(): Collection
+    {
+        return $this->rapportAbsences;
+    }
+
+    public function addRapportAbsence(RapportAbsence $rapportAbsence): self
+    {
+        if (!$this->rapportAbsences->contains($rapportAbsence)) {
+            $this->rapportAbsences[] = $rapportAbsence;
+            $rapportAbsence->setClasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRapportAbsence(RapportAbsence $rapportAbsence): self
+    {
+        if ($this->rapportAbsences->removeElement($rapportAbsence)) {
+            // set the owning side to null (unless already changed)
+            if ($rapportAbsence->getClasse() === $this) {
+                $rapportAbsence->setClasse(null);
+            }
+        }
 
         return $this;
     }

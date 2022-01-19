@@ -37,7 +37,7 @@ class PrendreFormType extends AbstractType
                 ]])
             ->add('beneficiaire', EntityType::class, [
             'class' => Beneficiaire ::class,
-            'choice_label' => 'numero',
+            'choice_label' => 'nom',
             'label' => 'Numero du Bénéficiaire',])
             ->add('vaccin', EntityType::class, [
             'class' => Vaccin ::class,

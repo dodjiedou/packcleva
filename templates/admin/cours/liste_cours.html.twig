@@ -1,0 +1,59 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block wrapper %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Liste des cours</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ path('admin') }}">Home</a></li>
+              <li class="breadcrumb-item active">affichget</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+  {% endblock %}
+
+{% block body %}
+
+
+<div class="py-2 px-3">
+      <div class="row">
+        <div class="col col-md-auto">
+          <a href="{{ path('addcours') }}" class=" btn btn-info btn-md btn-md btn-block" role="button" title="Lien 1">Ajouter un cours</a> 
+        </div>
+      </div>
+   </div>
+
+
+<div class=" px-3  container py-4 ">
+  <div class="table-responsive-sm">
+    <table class="table    table-hover ">
+      <thead >
+        <tr class="table-secondary">
+          <th class="">N°</th>
+          <th class="">INTITULE</th>
+          <th lass=""">DOMAINE</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        {% for cour in cours %}
+          <tr>
+            <td class="">{{ cour.numero }}</td>
+            <td class="">{{ cour.intitule}}</td>
+            <td class="px-4 py-2 w-1/4">{{ cour.domaine }} </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+</div>  
+{% endblock %}
