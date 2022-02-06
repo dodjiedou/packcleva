@@ -6,41 +6,33 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Vaccin;
 use App\Entity\Maladie;
-
+use App\Entity\Beneficiaire;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+
+    $faker = Faker\Factory::create('fr_FR');
+    $populator->addEntity(Beneficiaire::class, 30);
+    $insertedPKs = $populator->execute(); 
+    $faker = Faker\Factory::create('fr_FR');
+
+        // créations des beneficiaires
+        $beneficiaire = [];
+        for ($i=0; $i < 30; $i++) {
+            $beneficiaire[$i] = new Beneficiaire();
+            $beneficiaire[$i]
+               ->setNom($faker->name)
+                ->setPremon($faker->siret)
+                ->setReference($faker->numberBetween(111111, 999999))
+                ->setContactName($faker->name)
+                ->setAddress($faker->address)
+            ;
+            $em->persist($shops[$i]);
+        }     
         
-        $malaria = new Maladie();
-        $malaria->setNom('Malaria');
-        $manager->persist($malaria);
-
-        $cancer = new Maladie();
-        $cancer->setNom('Cancer');
-        $manager->persist($cancer);
-
-        $bilharziose = new Maladie();
-        $bilharziose->setNom('Bilharziose');
-        $manager->persist($bilharziose);
-
-        $tripanosomiase = new Maladie();
-        $tripanosomiase->setNom('Tripanosomiase');
-        $manager->persist($tripanosomiase);
-    
-        $antitetanique = new Vaccin();
-        $antitetanique->setNom('Antitetanique');
-        $manager->persist($antitetanique);
-
-        $antirougioleux = new Vaccin();
-        $antirougioleux->setNom('Antirougioleux');
-        $manager->persist($antirougioleux);
-
-        $poliomyélite = new Vaccin();
-        $poliomyélite->setNom('Poliomyélite');
-        $manager->persist($poliomyélite);
-
-        $manager->flush();
+        //$manager->persist($malaria);
+       // $manager->flush();
     }
 }

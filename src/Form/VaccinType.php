@@ -15,7 +15,8 @@ class VaccinType extends AbstractType
     {
         $builder
             ->add('nom',TextType::class,[ 'label' => 'Nom du vaccin'])
-             ->add('save', SubmitType::class, ['label' => 'Creer'])
+             ->add('save', SubmitType::class, ['label' => 'Creer',
+                'attr'=>['class'=>'btn btn-primary w-100']])
         ;
     }
 

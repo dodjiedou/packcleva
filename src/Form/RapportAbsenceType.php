@@ -43,7 +43,7 @@ class RapportAbsenceType extends AbstractType
                 'label' => 'Classe',
                 //'placeholder' => 'choisir'
             ])
-            ->add('save', SubmitType::class, ['label' => 'Valider'])
+            ->add('save', SubmitType::class, ['label' => 'Valider','attr'=>['class'=>'btn btn-info w-100']])
         ;
     }
 

@@ -78,7 +78,9 @@ class BeneficiaireFormType extends AbstractType
                 //'required'=> true,
                 
             ])
-            ->add('save', SubmitType::class, ['label' => 'Creer'])
+            ->add('save', SubmitType::class, ['label' => 'Valider',
+                'attr' => ['class' => 'btn-info w-100']
+        ])
         ;
     }
 

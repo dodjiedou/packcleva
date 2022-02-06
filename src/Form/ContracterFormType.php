@@ -90,7 +90,7 @@ class ContracterFormType extends AbstractType
                 'required'=> true,
                 
             ])
-            ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
+            ->add('save', SubmitType::class, ['label' => 'Enregistrer','attr'=>['class'=>'btn btn-primary w-100']])
         ;
     }
 

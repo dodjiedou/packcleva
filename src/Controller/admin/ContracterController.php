@@ -5,10 +5,12 @@ use App\Entity\Contracter;
 use App\Entity\Maladie;
 use App\Entity\Beneficiaire;
 use App\Form\ContracterFormType;
+use App\Repository\BeneficiaireRepository;
 use App\Form\ContracterMaladieXType;
 use app\Form\RapportType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -85,7 +87,8 @@ class ContracterController extends AbstractController
 
          $contracter = new Contracter();
         $form = $this->createForm(ContracterMaladieXType::class, $contracter);
-        $contracters = null;
+        $contracters = $this->getDoctrine()
+            ->getRepository(Contracter::class)->findAll();;
         $maladie = null;
         $form->handleRequest($request);
         
@@ -122,7 +125,7 @@ class ContracterController extends AbstractController
              $contracters=$this->getDoctrine()->getRepository(Contracter::class)->findBy(['maladie'=>$nom]);
              foreach ($contracters as $benef => $contracter) {
 
-                $contract=$this->getDoctrine()->getRepository(Contracter::class)->findById($contracter);
+                $contract=$this->getDoctrine()->getRepository(Contracter::class)->findByIdContracter($contracter);
              
                 if ($contracter->getBeneficiaire()->getSexe()=='M'&& $contract==null ) {
                     $beneficiaireM=$beneficiaireM+1;
@@ -157,15 +160,15 @@ class ContracterController extends AbstractController
     public function rapportIndividuel(Request $request): Response
     {
         
-         $contracters = null;
+         $contracters = $this->getDoctrine()
+            ->getRepository(Contracter::class)->findAll();;
          $beneficiaire=null;
 
-        $form2 = $this->createFormBuilder()
-             ->add('beneficiaire', EntityType::class, [
-                'class' => Beneficiaire ::class,
-                'choice_label' => 'nom',
-                'label' => 'Nom du Bénéficiaire',
-            ])
+        $form = $this->createFormBuilder()
+             ->add('beneficiaire',IntegerType::class, [
+                'label' => "Numero du bénéficiaire",
+                'required'=> false,
+                ])
              ->add('date1', DateType::class, [
                 'label' => 'De',
                 'widget' => 'single_text',
@@ -176,24 +179,93 @@ class ContracterController extends AbstractController
                 'widget' => 'single_text',
                 'input' => 'string'
             ])
-            ->add('save', SubmitType::class, ['label' => 'Valider'])
+            ->add('save', SubmitType::class, ['label' => 'Valider','attr'=>['class'=>'btn btn-primary w-100']])
             ->getForm();
-       // $form2 = $this->createForm(RapportType::class);
-        $form2->handleRequest($request);
+       
+        $form->handleRequest($request);
 
-        if ($form2->isSubmitted() && $form2->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            $beneficiaire = $form2->get("beneficiaire")->getData();
-            $date1 = $form2->get("date1")->getData();
-            $date2 = $form2->get("date2")->getData();
+            $id = $form->get("beneficiaire")->getData();
+
+            $resultat =$this->getDoctrine()
+            ->getRepository(Beneficiaire::class)->findById($id);
+             foreach ($resultat as $key => $value) {
+
+                 $beneficiaire=$value;
+            }
+            $date1 = $form->get("date1")->getData();
+            $date2 = $form->get("date2")->getData();
             $contracters = $this->getDoctrine()
             ->getRepository(Contracter::class)->findByBeneficiaire($beneficiaire,$date1,$date2);
-            $form2 = $this->createForm(RapportType::class);
-            return $this->render('admin/contracter/rapport_individuel.html.twig', ['form'=>$form2->createView(),'contracters'=> $contracters,'beneficiaire'=> $beneficiaire]);
+           
+            return $this->render('admin/contracter/rapport_individuel.html.twig', ['form'=>$form->createView(),'contracters'=> $contracters,'beneficiaire'=> $beneficiaire]);
             
         }
-        return $this->render('admin/contracter/rapport_individuel.html.twig', ['form'=>$form2->createView(),'contracters'=> $contracters,'beneficiaire'=> $beneficiaire]);
+        return $this->render('admin/contracter/rapport_individuel.html.twig', ['form'=>$form->createView(),'contracters'=> $contracters,'beneficiaire'=> $beneficiaire]);
     }
+
+     #[Route('/edit_contracter/{id}', name: 'edit_contracter')]
+   public function edit(Request $request,$id): Response
+     {
+        $contracteres = new Contracter();
+        
+         $entityManager = $this->getDoctrine()->getManager();
+
+         $form = $this->createForm(ContracterFormType::class, $contracteres);
+        
+
+       $resultat = $this->getDoctrine()
+             ->getRepository(Contracter::class)->findById($id);
+       foreach ($resultat as $key => $value) {
+
+                 $contracter=$value;
+            }
+          
+        $form->get('date')->setData($contracter->getDate());
+        $form->get('infoAnalyse')->setData($contracter->getInfoAnalyse());
+        $form->get('manifestationMaladie')->setData($contracter->getManifestationMaladie());
+        $form->get('produitPrescrit')->setData($contracter->getProduitPrescrit());
+        $form->get('debutHospitalisation')->setData($contracter->getDebutHospitalisation());
+        $form->get('finHospitalisation')->setData($contracter->getFinHospitalisation());
+        $form->get('montantSoin')->setData($contracter->getMontantSoin());
+        $form->get('etatBeneficiaire')->setData($contracter->getEtatBeneficiaire());
+        $form->get('nombreVisite')->setData($contracter->getNombreVisite());
+        $form->get('nombrePrayerSupport')->setData($contracter->getNombrePrayerSupport());
+        $form->get('maladie')->setData($contracter->getMaladie());
+        $form->get('beneficiaire')->setData($contracter->getBeneficiaire());
+
+        
+        $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
+        $contracter->setDate($form->get('date')->getData())  ;
+        $contracter->setInfoAnalyse($form->get('infoAnalyse')->getData());
+        $contracter->setManifestationMaladie($form->get('manifestationMaladie')->getData());
+        $contracter->setProduitPrescrit($form->get('produitPrescrit')->getData());
+        $contracter->setDebutHospitalisation($form->get('debutHospitalisation')->getData());
+        $contracter->setFinHospitalisation($form->get('finHospitalisation')->getData());
+        $contracter->setMontantSoin($form->get('montantSoin')->getData());
+        $contracter->setEtatBeneficiaire($form->get('etatBeneficiaire')->getData());
+        $contracter->setNombreVisite($form->get('nombreVisite')->getData());
+        $contracter->setNombrePrayerSupport($form->get('nombrePrayerSupport')->getData());
+        $contracter->setMaladie($form->get('maladie')->getData());
+         $contracter->setBeneficiaire($form->get('beneficiaire')->getData());
+
+         $entityManager->persist($contracter);
+          $entityManager->flush();   
+         $this->addFlash("modifierc", "modification effectuée avec succès !");
+             return $this->redirectToRoute('consultation');
+
+         
+         }
+
+ 
+        return $this->render('admin/contracter/enregistrement_cas_maladie.html.twig',[
+            'form' => $form->createView()]);
+    }
+
 
 
 

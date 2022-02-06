@@ -14,7 +14,9 @@ class CategorieType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('save', SubmitType::class, ['label' => 'Creer'])
+            ->add('save', SubmitType::class, ['label' => 'Valider',
+                'attr'=>['class'=>'btn btn-info w-100']
+        ])
         ;
     }
 

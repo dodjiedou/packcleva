@@ -6,9 +6,7 @@
                     </td>
 
 
-        
-
-        public function buildForm(FormBuilderInterface $builder, array $options): void
+   
     {
        
          $builder->add('vaccin', EntityType::class, [
@@ -67,91 +65,6 @@
                 ]);
             }
         );
-
-
-        {{ form_start(form) }}
-    {{ form_row(form.vaccin) }}    
-    {{ form_row(form.beneficiaire) }} 
-  {{ form_end(form) }}
-
-<script>
-var $vaccin = $('#meetup_sport');
-
-$vaccin.change(function() {
-  
-  var $form = $(this).closest('form');
- 
-  var data = {};
-  data[$vaccin.attr('name')] = $vaccin.val();
-  
-  $.ajax({
-    url : $form.attr('action'),
-    type: $form.attr('method'),
-    data : data,
-    complete: function(html) {
-      
-      $('#meetup_position').replaceWith(
-        
-        $(html.responseText).find('#meetup_position')
-      );
-      
-    }
-  });
-});
-</script>
-
-
-    <div class=" px-4">
-      <div class="row">
-        <div class="col col-md-auto">
-         <h3> {{ form_start(form) }}
-          {{ form_row(form.vaccin) }} 
-          {{ form_row(form.beneficiaire) }}     
-          {{ form_end(form) }}</h3>
-        </div> 
-      </div>
-    </div>
-
-
-         {{ form_start(form) }}
-          {{ form_row(form.vaccin) }} 
-          {{ form_row(form.beneficiaire) }}     
-          {{ form_end(form) }}
-
-          <script>
-          var $vaccin = $('#meetup_sport');
-
-          $vaccin.change(function() {
-            
-            var $form = $(this).closest('form');
-           
-            var data = {};
-            data[$vaccin.attr('name')] = $vaccin.val();
-            
-            $.ajax({
-              url : $form.attr('action'),
-              type: $form.attr('method'),
-              data : data,
-              complete: function(html) {
-                
-                $('#meetup_position').replaceWith(
-                  
-                  $(html.responseText).find('#meetup_position')
-                );
-                
-              }
-            });
-          });
-          </script>
-  <div class=" px-4">
-      <div class="row">
-        <div class="col col-md-auto">
-         <h3> {{ form_start(form) }}
-          {{ form_row(form.vaccin) }}    
-          {{ form_end(form) }}</h3>
-        </div> 
-      </div>
-    </div>
 
 
 
@@ -751,3 +664,47 @@ public function delete(Request $request, Beneficiaire $beneficiaire): Response
   
 
 {% endblock %}
+
+
+<div class=" px-3  col-md-8  container py-4 ">
+          <div class="table-responsive-sm">
+            <table class="table    table-hover ">
+              <thead >
+                <tr class="table-secondary">
+                  <th class=""></th>
+                  <th class="">N°</th>
+                  <th lass=""">NOM</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                {% for categorie in categories %}
+
+                  <tr>
+
+                    <td class="">
+                    <input type="checkbox" cols="1">
+                     <option valeur="{{ categorie.id }}"></option>
+                    </input>
+                    </td>
+
+
+                    <td class="">{{ categorie.id }}</td>
+
+                    <td class="px-4 py-2 w-1/4">{{ categorie.nom }} </td>
+
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+    </div>
+  </div>  
+@InheritanceType("JOINED")
+ * @DiscriminatorColumn(name="type", type="string")
+ * @DiscriminatorMap({
+ *  "cadeauLocalite" = "CadeauLocalite",
+ *  "cadeauRangOccupe" = "CadeauRangOccupe",
+ *  "cadeauNiveauEtude" = "CadeauNiveauEtude",
+ *  "cadeauClasseCde" = "CadeauClasseCde",
+ *  "cadeauAge" = "CadeauAge",
+ * })

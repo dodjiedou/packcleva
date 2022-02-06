@@ -100,7 +100,7 @@ class RapportAbsenceController extends AbstractController
      }
 
 
-     #[Route('/rapport_absence_categorie', name: 'rapport_absence_categorie')]
+     #[Route(' /rapport_absence_categorie', name: 'rapport_absence_categorie')]
     public function rapportCategorie(Request $request): Response
     {
        $rapports =$this->getDoctrine()

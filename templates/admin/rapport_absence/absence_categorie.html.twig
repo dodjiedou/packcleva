@@ -1,13 +1,13 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block wrapper %}
-<div class="content-wrapper">
+
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Rapport de présence  </h1>
+            <h1 class="text-info m-0"><i class="fas fa-edit"></i> Rapport de présence  </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -33,7 +33,7 @@
           {{ form_end(form) }}
         </div>
         <div class="col col-md-auto py-5">
-          <a href="{{ path('absence_categorie') }}" class=" btn btn-success btn-md btn-md btn-block" role="button" title="Lien 1">Ajouter un rapport de présence</a> 
+          <a href="{{ path('absence_categorie') }}" class=" btn btn-info btn-md btn-md btn-block" role="button" title="Lien 1"><i class="fas fa-plus-square"></i>Ajouter un rapport de présence</a> 
         </div>
 
    </div>
@@ -42,7 +42,7 @@
 
     
       <div class=" px-1 ">
-          <div class="table-responsive-sm">
+          <div class="card table-responsive-sm">
             <table class="table table-hover table-bordered  ">
               <thead  class="table-secondary">
 
@@ -57,7 +57,7 @@
               </thead>
               <tbody>
                 {% for rapport in rapports %}
-                 
+                <tr>
                     <td class="">{{ rapport .categorie.nom }}</td>
 
                    <td class="">Du {{ rapport .debutPeriode }} au {{ rapport .finPeriode }}</td>
@@ -67,7 +67,7 @@
                     <td class="">{{ rapport.nombreAbsence }}</td>
 
                     <td class="">{{ rapport.nombreAbsence }}</td>
-
+                </tr>
                 {% endfor %} 
               </tbody>
             </table>

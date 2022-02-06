@@ -19,7 +19,7 @@ class CoursType extends AbstractType
             ->add('intitule')
             ->add('domaine')
             ->add('numero')
-            ->add('save', SubmitType::class, ['label' => 'Creer'])
+            ->add('save', SubmitType::class, ['label' => 'Valider','attr'=>['class'=>'btn btn-primary w-100']])
         ;
     }
 

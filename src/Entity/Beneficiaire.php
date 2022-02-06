@@ -104,12 +104,18 @@ class Beneficiaire
      */
     private $categorie;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Lettre::class, mappedBy="beneficiaire", orphanRemoval=true)
+     */
+    private $lettres;
+
 
     public function __construct()
     {
         
         $this->contracters = new ArrayCollection();
         $this->prendres = new ArrayCollection();
+        $this->lettres = new ArrayCollection();
        
     }
 
@@ -351,6 +357,36 @@ class Beneficiaire
     public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lettre[]
+     */
+    public function getLettres(): Collection
+    {
+        return $this->lettres;
+    }
+
+    public function addLettre(Lettre $lettre): self
+    {
+        if (!$this->lettres->contains($lettre)) {
+            $this->lettres[] = $lettre;
+            $lettre->setBeneficiaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLettre(Lettre $lettre): self
+    {
+        if ($this->lettres->removeElement($lettre)) {
+            // set the owning side to null (unless already changed)
+            if ($lettre->getBeneficiaire() === $this) {
+                $lettre->setBeneficiaire(null);
+            }
+        }
 
         return $this;
     }

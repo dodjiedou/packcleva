@@ -39,6 +39,11 @@ class Categorie
      */
     private $rapportAbsenceCategories;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Culculum::class, mappedBy="categorie")
+     */
+    private $culculums;
+
     
 
     public function __construct()
@@ -46,6 +51,7 @@ class Categorie
         $this->beneficiaires = new ArrayCollection();
         $this->classes = new ArrayCollection();
         $this->rapportAbsenceCategories = new ArrayCollection();
+        $this->culculums = new ArrayCollection();
         
     }
 
@@ -150,6 +156,36 @@ class Categorie
             // set the owning side to null (unless already changed)
             if ($rapportAbsenceCategory->getCategorie() === $this) {
                 $rapportAbsenceCategory->setCategorie(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Culculum[]
+     */
+    public function getCulculums(): Collection
+    {
+        return $this->culculums;
+    }
+
+    public function addCulculum(Culculum $culculum): self
+    {
+        if (!$this->culculums->contains($culculum)) {
+            $this->culculums[] = $culculum;
+            $culculum->setCategorie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCulculum(Culculum $culculum): self
+    {
+        if ($this->culculums->removeElement($culculum)) {
+            // set the owning side to null (unless already changed)
+            if ($culculum->getCategorie() === $this) {
+                $culculum->setCategorie(null);
             }
         }
 

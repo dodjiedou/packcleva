@@ -73,10 +73,48 @@ class ClasseController extends AbstractController
     }
 
     
-    #[Route('/editclass', name: 'editclass')]
-    public function ModifierClasse(): Response
+    #[Route('/editclass/{id}', name: 'editclass')]
+    public function ModifierClasse(Request $request,$id): Response
     {
-        return $this->render('admin/classe/index.html.twig');
+        $classes = new Classe();
+        
+         $entityManager = $this->getDoctrine()->getManager();
+
+         $form = $this->createForm(ClasseType::class, $classes);
+        
+
+       $resultat = $this->getDoctrine()
+             ->getRepository(Classe::class)->findById($id);
+       foreach ($resultat as $key => $value) {
+
+                 $classe=$value;
+            }
+          
+        $form->get('nom')->setData($classe->getNom());
+        $form->get('categorie')->setData($classe->getCategorie());
+        $form->get('annee')->setData($classe->getAnnee());
+        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+        $classe->setNom($form->get('nom')->getData())  ;
+        $classe->setCategorie($form->get('categorie')->getData());
+        $classe->setAnnee($form->get('annee')->getData());
+        
+         $entityManager->persist($classe);
+          $entityManager->flush();   
+         $this->addFlash("modifierclasse", "modification effectuée avec succès !");
+             return $this->redirectToRoute('classe');
+
+         
+         }
+
+ 
+        return $this->render('admin/classe/edit_classe.html.twig',[
+            'form' => $form->createView()]);
+ 
+
     }
 
 
@@ -128,9 +166,21 @@ class ClasseController extends AbstractController
 
 
 
-    #[Route('/deleteclass', name: 'deleteclass')]
-    public function supprimerClasse(): Response
+    #[Route('/deleteclass/{id}', name: 'deleteclass')]
+    public function supprimerClasse($id): Response
     {
-        return $this->render('admin/classe/view.html.twig');
+     
+         $entityManager = $this->getDoctrine()->getManager();
+         $result = $this->getDoctrine()
+             ->getRepository(Classe::class)->findById($id);
+       foreach ($result as $key => $value) {
+
+           $classe=$value;
+       }
+         $entityManager->remove($classe);
+         $entityManager->flush();
+         $this->addFlash("modifierclasse", "opération effectuée avec succès !");
+        
+             return $this->redirectToRoute('classe');
     }
 }

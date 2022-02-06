@@ -53,7 +53,8 @@ class BeneficiaireController extends AbstractController
 
             $beneficiaire = $form->getData();
              $entityManager->persist($beneficiaire);
-             $entityManager->flush();
+             $entityManager->flush();   
+                $this->addFlash("ajoute", "Bénéficiaire ".$beneficiaire->getPrenom()." ".$beneficiaire->getNom()." a été créé(e) avec succès !");
              return $this->redirectToRoute('creerbeneficiaire');
          }
 
@@ -73,10 +74,65 @@ class BeneficiaireController extends AbstractController
          return $this->render('admin/beneficiaire/afficherbeneficiaire.html.twig', compact('benef'));
      }
 
-     #[Route('/edit_beneficiaire', name: 'edit_beneficiaire')]
-   public function edit(): Response
+     #[Route('/edit_beneficiaire/{id}', name: 'edit_beneficiaire')]
+   public function edit(Request $request,$id): Response
      {
-         return $this->render('admin/beneficiaire/edit_beneficiaire.html.twig');
+        $beneficiaires = new Beneficiaire();
+        
+         $entityManager = $this->getDoctrine()->getManager();
+
+         $form = $this->createForm(BeneficiaireFormType::class, $beneficiaires);
+        
+
+       $resultat = $this->getDoctrine()
+             ->getRepository(Beneficiaire::class)->findById($id);
+       foreach ($resultat as $key => $value) {
+
+                 $beneficiaire=$value;
+            }
+          
+        $form->get('nom')->setData($beneficiaire->getNom());
+        $form->get('prenom')->setData($beneficiaire->getPrenom());
+        $form->get('telephone')->setData($beneficiaire->getTelephone());
+        $form->get('email')->setData($beneficiaire->getEmail());
+        $form->get('dateNaissance')->setData($beneficiaire->getDateNaissance());
+        $form->get('sexe')->setData($beneficiaire->getSexe());
+        $form->get('classe')->setData($beneficiaire->getClasse());
+        $form->get('religion')->setData($beneficiaire->getReligion());
+        $form->get('nomTuteur')->setData($beneficiaire->getNomTuteur());
+        $form->get('adresse')->setData($beneficiaire->getAdresse());
+        $form->get('rangOccupe')->setData($beneficiaire->getRangOccupe());
+        $form->get('classecde')->setData($beneficiaire->getClassecde());
+
+        
+        $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
+        $beneficiaire->setNom($form->get('nom')->getData())  ;
+        $beneficiaire->setPrenom($form->get('prenom')->getData());
+        $beneficiaire->setTelephone($form->get('telephone')->getData());
+        $beneficiaire->setEmail($form->get('email')->getData());
+        $beneficiaire->setDateNaissance($form->get('dateNaissance')->getData());
+        $beneficiaire->setSexe($form->get('sexe')->getData());
+        $beneficiaire->setClasse($form->get('classe')->getData());
+        $beneficiaire->setReligion($form->get('religion')->getData());
+        $beneficiaire->setNomTuteur($form->get('nomTuteur')->getData());
+        $beneficiaire->setAdresse($form->get('adresse')->getData());
+        $beneficiaire->setRangOccupe($form->get('rangOccupe')->getData());
+        $beneficiaire->setClassecde($form->get('classecde')->getData());
+
+         $entityManager->persist($beneficiaire);
+          $entityManager->flush();   
+         $this->addFlash("modifier", "modification effectuée avec succès !");
+             return $this->redirectToRoute('list_beneficiaire');
+
+         
+         }
+
+
+         return $this->render('admin/beneficiaire/edit_beneficiaire.html.twig', [
+             'form' => $form->createView()]);
     }
 
     #[Route('/delete_beneficiaire/{num}', name: 'delete_beneficiaire')]
@@ -84,13 +140,12 @@ class BeneficiaireController extends AbstractController
      {
          $entityManager = $this->getDoctrine()->getManager();
          $benef = $this->getDoctrine()
-             ->getRepository(Beneficiaire::class)->findOneBy(["numero"=>$num]);
+             ->getRepository(Beneficiaire::class)->findOneBy(["id"=>$num]);
          $entityManager->remove($benef);
          $entityManager->flush();
-         $beneficiaires = $this->getDoctrine()
-             ->getRepository(Beneficiaire::class)->findAll();
-         return $this->render('admin/beneficiaire/list_beneficiaire.html.twig',[
-             'beneficiaires' => $beneficiaires]);
+         $this->addFlash("modifier", "opération effectuée avec succès !");
+        
+             return $this->redirectToRoute('list_beneficiaire');
      }
  }
 

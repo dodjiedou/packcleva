@@ -27,7 +27,7 @@ class ClasseType extends AbstractType
              'Troisième année' => 'Troisième année',
              'Quatrième année' => 'Quatrième année',
                 ]])
-            ->add('save', SubmitType::class, ['label' => 'Creer'])
+            ->add('save', SubmitType::class, ['label' => 'Valider','attr'=>['class'=>'btn btn-primary w-100']])
         ;
     }
 

@@ -16,7 +16,9 @@ class MaladieType extends AbstractType
         $builder
             ->add('nom',TextType::class,[ 'label' => 'Nom de la maladie tuteur'])
             ->add('categorie',TextType::class,[ 'label' => 'Categorie de la maladie'])
-             ->add('save', SubmitType::class, ['label' => 'Creer'])
+             ->add('save', SubmitType::class, ['label' => 'Creer',
+                'attr'=>['class'=>'btn btn-primary w-100']
+         ])
         ;
     }
 

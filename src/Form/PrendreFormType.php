@@ -42,7 +42,7 @@ class PrendreFormType extends AbstractType
             ->add('vaccin', EntityType::class, [
             'class' => Vaccin ::class,
             'choice_label' => 'nom'])
-             ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
+             ->add('save', SubmitType::class, ['label' => 'Enregistrer','attr'=>['class'=>'btn btn-info w-100']])
         ;
     }
 

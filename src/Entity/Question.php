@@ -27,6 +27,17 @@ class Question
      */
     private $dateQuestion;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Lettre::class, inversedBy="questions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $lettre;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Reponse::class, mappedBy="question", cascade={"persist", "remove"})
+     */
+    private $reponse;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +63,35 @@ class Question
     public function setDateQuestion(\DateTimeInterface $dateQuestion): self
     {
         $this->dateQuestion = $dateQuestion;
+
+        return $this;
+    }
+
+    public function getLettre(): ?Lettre
+    {
+        return $this->lettre;
+    }
+
+    public function setLettre(?Lettre $lettre): self
+    {
+        $this->lettre = $lettre;
+
+        return $this;
+    }
+
+    public function getReponse(): ?Reponse
+    {
+        return $this->reponse;
+    }
+
+    public function setReponse(Reponse $reponse): self
+    {
+        // set the owning side of the relation if necessary
+        if ($reponse->getQuestion() !== $this) {
+            $reponse->setQuestion($this);
+        }
+
+        $this->reponse = $reponse;
 
         return $this;
     }

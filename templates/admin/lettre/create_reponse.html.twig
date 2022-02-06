@@ -1,0 +1,57 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block wrapper %}
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="text-primary m-0"><i class="fas fa-letter"></i> Reponse</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ path('list_beneficiaire') }}">Retour</a></li>
+              <li class="breadcrumb-item active">beneficiaire</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+  {% endblock %}
+    
+       
+{% block body %}    
+
+
+ 
+    {% if app.session.flashBag.has('ajoute') %}
+     <div class="col-8 text-center mx-auto alert alert-info">
+            {% for msg in app.session.flashBag.get('ajoute') %}
+              <p>  {{ msg }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card card-primary">
+                <div class="card-header text-center"><h3>Enregistrement d'une reponse</h3></div>
+                        <div class="card-body w-100">
+     
+                {{form_start(form)}}
+
+                {{ form(form) }}
+              
+              {{form_end(form)}}
+
+           </div>           
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

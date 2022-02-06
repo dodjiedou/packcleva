@@ -1,13 +1,13 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block wrapper %}
-<div class="content-wrapper">
+
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Ajout de beneficiaire</h1>
+            <h1 class="text-info m-0"> Beneficiaire</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -25,24 +25,33 @@
 {% block body %}	
 
 
+ 
+    {% if app.session.flashBag.has('ajoute') %}
+     <div class="col-8 text-center mx-auto alert alert-info">
+            {% for msg in app.session.flashBag.get('ajoute') %}
+              <p>  {{ msg }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
 	<div class="container py-4">
 	<div class="row justify-content-center">
 		<div class="col-md-8">
 			<div class="card card card-info">
 				<div class="card-header text-center"><h3>Enregistrement d'un bénéficiaire</h3></div>
-						<div class="card-body">
+						<div class="card-body w-100">
 	 
-		{{form_start(form)}}
+          		{{form_start(form)}}
 
-		{{ form(form) }}
+          		{{ form(form) }}
+              
+          	  {{form_end(form)}}
 
-
-	{{form_end(form)}}
            </div>			
 				</div>
 			</div>
 		</div>
 	</div>
-</div>	
+
 
 {% endblock %}

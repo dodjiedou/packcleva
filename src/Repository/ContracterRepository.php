@@ -63,7 +63,7 @@ class ContracterRepository extends ServiceEntityRepository
     }
 
 
-    public function findById($contracter)
+    public function findByIdContracter($contracter)
     {
         $em = $this->getEntityManager();
         
