@@ -5,7 +5,9 @@ namespace App\Form;
 use App\Entity\Categorie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType
+;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CategorieType extends AbstractType
@@ -14,7 +16,17 @@ class CategorieType extends AbstractType
     {
         $builder
             ->add('nom')
+             ->add('ageMin',NumberType::class, [
+                'label' => 'Age Minimum',
+                'scale' => 2,
+         ])
+             ->add('ageMax',NumberType::class, [
+                'label' => 'Age Maximum',
+                 'scale' => 2,
+                 
+         ])
             ->add('save', SubmitType::class, ['label' => 'Valider',
+
                 'attr'=>['class'=>'btn btn-info w-100']
         ])
         ;

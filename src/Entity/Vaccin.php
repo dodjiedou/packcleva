@@ -29,6 +29,11 @@ class Vaccin
      */
     private $prendres;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nombreDeDose;
+
     public function __construct()
     {
         $this->prendres = new ArrayCollection();
@@ -77,6 +82,18 @@ class Vaccin
                 $prendre->setVaccin(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNombreDeDose(): ?int
+    {
+        return $this->nombreDeDose;
+    }
+
+    public function setNombreDeDose(int $nombreDeDose): self
+    {
+        $this->nombreDeDose = $nombreDeDose;
 
         return $this;
     }

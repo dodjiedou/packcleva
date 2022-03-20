@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Contracter;
 use App\Entity\Prendre;
+use App\Entity\Beneficiaire;
 use app\Form\RapportIndividuelType;
 use App\Entity\Maladie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -71,10 +72,12 @@ class ContracterRepository extends ServiceEntityRepository
                 SELECT c
                 FROM App\Entity\Contracter c
                 WHERE c.beneficiaire = :benef 
-                AND c.id > :id
+                AND c.maladie= :mal
+                AND c.id < :id
             ");
            $qr->setParameters(array(
                 'benef' => $contracter->getBeneficiaire(),
+                'mal'=>$contracter->getMaladie(),
                 'id' => $contracter->getId()
                 
             ));
@@ -82,6 +85,56 @@ class ContracterRepository extends ServiceEntityRepository
            return $qr->getResult();      
     }
 
+    public function findLastMaladie()
+    {
+       
+       
+        
+        $em = $this->getEntityManager();
+        
+           $qr = $em->createQuery("
+                SELECT m
+                FROM App\Entity\Maladie m
+                ORDER BY m.id ASC 
+                
+            ");
+           $maladies=$qr->getResult();
+           foreach ($maladies as $key => $value) {
+            if ($key==0) {
+                $maladie=$value;
+            }
+              
+           } 
+
+           return $maladie;      
+   
+            
+    }
+
+    public function findContracterByBeneficiaire($beneficiaire,$maladie)
+    {
+        $em = $this->getEntityManager();
+        
+           $qr = $em->createQuery("
+                SELECT c
+                FROM App\Entity\Contracter c
+                WHERE c.beneficiaire = :beneficiaire 
+                AND c.maladie = :maladie 
+                ORDER BY c.id ASC
+            ");
+           $qr->setParameters(array(
+                'beneficiaire' => $beneficiaire,
+                'maladie' => $maladie,
+               
+            ));
+
+           return $qr->getResult();      
+    }
+
+
+
+
+    
 
 }
     

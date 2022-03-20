@@ -6,6 +6,7 @@ use App\Entity\Lettre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+
 /**
  * @method Lettre|null find($id, $lockMode = null, $lockVersion = null)
  * @method Lettre|null findOneBy(array $criteria, array $orderBy = null)
@@ -36,15 +37,5 @@ class LettreRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Lettre
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+    
 }

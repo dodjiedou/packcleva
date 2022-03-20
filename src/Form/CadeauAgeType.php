@@ -24,11 +24,11 @@ class CadeauAgeType extends AbstractType
            ->add('nomArticle',TextType::class,[ 'label' => 'Article'])
             ->add('mesureArticle',TextType::class,[ 'label' => 'Mesure'])
             ->add('nombreFille',IntegerType::class, [
-                'label' => "Nombre de Fille",
+                'label' => "Quantité pour les Filles",
                 'required'=> false,
                 ])
             ->add('nombreGarcon',IntegerType::class, [
-                'label' => "Nombre de Garçon ",
+                'label' => "Quantité pour les Garçons ",
                 'required'=> false,
                 ])
             ->add('age',IntegerType::class, [

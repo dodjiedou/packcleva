@@ -44,6 +44,16 @@ class Categorie
      */
     private $culculums;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $ageMin;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $ageMax;
+
     
 
     public function __construct()
@@ -188,6 +198,30 @@ class Categorie
                 $culculum->setCategorie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAgeMin(): ?float
+    {
+        return $this->ageMin;
+    }
+
+    public function setAgeMin(float $ageMin): self
+    {
+        $this->ageMin = $ageMin;
+
+        return $this;
+    }
+
+    public function getAgeMax(): ?float
+    {
+        return $this->ageMax;
+    }
+
+    public function setAgeMax(float $ageMax): self
+    {
+        $this->ageMax = $ageMax;
 
         return $this;
     }

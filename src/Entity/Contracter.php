@@ -82,6 +82,16 @@ class Contracter
      * @ORM\JoinColumn(nullable=false)
      */
     private $beneficiaire;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $diagnostique;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $debutTraitement;
     
 
     public function getId(): ?int
@@ -256,6 +266,30 @@ class Contracter
     public function setBeneficiaire(?Beneficiaire $beneficiaire): self
     {
         $this->beneficiaire = $beneficiaire;
+
+        return $this;
+    }
+
+    public function getDiagnostique(): ?string
+    {
+        return $this->diagnostique;
+    }
+
+    public function setDiagnostique(string $diagnostique): self
+    {
+        $this->diagnostique = $diagnostique;
+
+        return $this;
+    }
+
+    public function getDebutTraitement(): ?string
+    {
+        return $this->debutTraitement;
+    }
+
+    public function setDebutTraitement(?string $debutTraitement): self
+    {
+        $this->debutTraitement = $debutTraitement;
 
         return $this;
     }

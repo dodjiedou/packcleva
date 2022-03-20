@@ -18,11 +18,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminController extends AbstractController
 {
-    #[Route('/', name: 'admin')]
+   
+
+    #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
         //$beneficiaires = $this->getDoctrine()->getRepository(Beneficiaire::class)->findAll();
          //return $this->render('admin/index.html.twig',['beneficiaires' => $beneficiaires]);
         return $this->render('admin/index.html.twig');
     }
+    
 }

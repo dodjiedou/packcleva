@@ -21,87 +21,105 @@
     <!-- /.content-header -->
   {% endblock %}
 
-{% block body %}
+{% block body %} 
 
-
-    
-
-<div class="px-4 ">
-   <div class="card  px-4 col-4 ">
-      <div class="row ">
-        <div class="py-2 col col-md-auto">
+    <div class=" px-3">
+      <div class="row">
+        <div class="col col-md-auto py-2">
          {{ form_start(form) }}
-          <h3>{{ form_row(form.maladie) }}   </h3>       
+          <h3>{{ form_row(form.maladie) }} </h3>   
         </div>
-        <div class="py-5 col col-md-auto">
-          <h3>{{ form_row(form.save) }}     
+        <div class="col col-md-auto py-5">
+          {{ form_row(form.save) }}     
           {{ form_end(form) }}
-        </div>   
-      </div>
-   </div>
-</div>
+        </div>
 
-   <div class="py-3 px-3">
+   </div>
+
+
+   <div class="">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {% if maladie is null %}
-            Veuillez selectionner une maladie 
-        {% else %}
-          Liste des bénéficiaires ayant subi le traitement de {{maladie.nom}} 
+        
+        {% if maladie is not  null %}
+           Liste des bénéficiaires ayant subi ou non le traitement de {{maladie.nom}} 
 
         {% endif %}
                    
         </h2>
     </div>
-
-
-      <div class=" px-3 ">
+  
+      <div class=" px-1 ">
           <div class="card table-responsive-sm">
             <table class="table table-hover table-bordered  ">
-              <thead  class="table-secondary">
+              <thead  class="table-primary">
 
-               <tr class="table-secondary">
-                  <th class="text-center">N°</th>
-                  <th class="text-center px-4 py-2 w-1/4">NOM ET PRENOM</th>
-                  <th class="text-center">SEXE</th>
-                  <th class="text-center">DATE DE NAISSANCE</th>
-                  <th class="text-center">AGE</th>
-                  <th class="text-center">Date</th>
-                  <th class="text-center">Produits prescrits et administrés pour les soin</th>
-                  <th class="text-center">Début de l'hospitalisation</th>
-                  <th class="text-center">Fin de l'hospitalisation</th>
-                  <th class="text-center">Montant des soins et analyses</th>
-                  <th class="">Etat du bénéficiaire après manifestation de la maladie</th>
-               </tr>
+                <tr  class="">
+                  <th rowspan="" class="">N°</th>
+                  <th rowspan="" class="">NOM ET PRENOM</th>
+                  <th rowspan="" class="">SEXE</th>
+                  <th rowspan="" class="">DATE DE NAISSANCE</th>
+                  <th rowspan="" class="">AGE</th>
+                  
+                  <th colspan="2" class="text-center">ACTIONS</th>
+                </tr>
+          
               </thead>
               <tbody>
                 
-                  {% for contracter in contracters %}
-                  
+                 {% for beneficiaireMalade in beneficiaireMalades %}
+               
+
                   <tr>
 
-                    <td class="">{{contracter.beneficiaire.id }}</td>
+                    <td class="">{{beneficiaireMalade.numero }}</td>
 
-                     <td class="px-4 py-2 w-1/4">{{ contracter .beneficiaire.nom }} {{ contracter.beneficiaire.prenom }}</td>
+                     <td class="px-4 py-2 w-1/4">{{ beneficiaireMalade.nom }} {{beneficiaireMalade.prenom }}</td>
 
-                    <td class="">{{ contracter .beneficiaire.sexe }}</td>
+                    <td class="">{{ beneficiaireMalade.sexe }}</td>
 
-                    <td class="">{{contracter .beneficiaire.dateNaissance }}</td>
+                    <td class="">{{beneficiaireMalade.dateNaissance }}</td>
 
-                    <td class="">{{ contracter .beneficiaire.getAge(contracter .beneficiaire.dateNaissance) }}</td>
+                    <td class="">{{ beneficiaireMalade.getAge(beneficiaireMalade.dateNaissance) }}</td>
 
-                    <td class="">{{contracter .date }}</td>
 
-                    <td class="">{{contracter .produitPrescrit }}</td>
+                    <td style="width: 130px" class="">
+                    <a href="{{ path('ajouter_cas', {"idm": maladie.id,"idb": beneficiaireMalade.id}) }}" class="btn btn-primary btn-sm rounded  " role="button" title="Lien 1">Nouvelle Cas</a> </td>
 
-                    <td class="">{{contracter .debutHospitalisation }}</td>
-
-                    <td class="">{{contracter .finHospitalisation  }}</td>
-
-                    <td class="">{{contracter .montantSoin  }}</td>
-
-                    <td class="">{{contracter .etatBeneficiaire   }}</td>
+                     <td style="width: 150px" class="">
+                    <a href="{{ path('mes_cas', {"idm": maladie.id,"idb": beneficiaireMalade.id}) }}" class="btn btn-success btn-sm rounded  " role="button" title="Lien 1"> <i class="fas fa-eye"></i>Voir la rapport</a> </td>
 
                     
+
+                  </tr>
+
+                {% endfor %}
+
+                 {% for beneficiaireNonMalade in beneficiaireNonMalades %}
+               
+
+                  <tr>
+
+                    <td class="">{{beneficiaireNonMalade.numero }}</td>
+
+                     <td class="px-4 py-2 w-1/4">{{beneficiaireNonMalade.nom }} {{beneficiaireNonMalade.prenom }}</td>
+
+                    <td class="">{{beneficiaireNonMalade.sexe }}</td>
+
+                    <td class="">{{beneficiaireNonMalade.dateNaissance }}</td>
+
+                    <td class="">{{beneficiaireNonMalade.getAge(beneficiaireNonMalade.dateNaissance) }}</td>
+
+
+                    <td style="width: 130px" class="">
+                    <a href="{{ path('ajouter_cas', {"idm": maladie.id,"idb": beneficiaireNonMalade.id}) }}" class="btn btn-warning btn-sm rounded  " role="button" title="Lien 1"> Prémier Cas</a> </td>
+
+                    
+                    
+                    <td style="width: 150px" class="">
+                    <a href="#" class="btn btn-info btn-sm rounded  " role="button" title="Lien 1"> <i class="fas fa-eye"></i>Aucun rapport</a> </td>
+                    
+                   
+                  </tr>
                 {% endfor %}
                 
               </tbody>
@@ -110,5 +128,4 @@
   </div>  
         
           
-
 {% endblock %}

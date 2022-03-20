@@ -4,6 +4,7 @@ namespace App\Controller\admin;
 
 use App\Entity\Personne;
 use App\Entity\Beneficiaire;
+use App\Entity\Categorie;
 use Symfony\Component\Form\Form;
 use App\Form\BeneficiaireFormType;
 use App\Repository\BeneficiaireRepository;
@@ -28,7 +29,7 @@ class BeneficiaireController extends AbstractController
      */
    
 
-     #[Route('/list_beneficiaire', name: 'list_beneficiaire')]
+     #[Route('/liste/beneficiaire', name: 'list_beneficiaire')]
      public function list(): Response
      {
         $beneficiaires = $this->getDoctrine()
@@ -42,16 +43,44 @@ class BeneficiaireController extends AbstractController
      public function new(Request $request): Response
      {
         $beneficiaire = new Beneficiaire();
-         $personne = new Personne();
+        
          $entityManager = $this->getDoctrine()->getManager();
-
+         $numero = $this->getDoctrine()
+             ->getRepository(Beneficiaire::class)->findLastId();
          $form = $this->createForm(BeneficiaireFormType::class, $beneficiaire);
+        
 
          $form->handleRequest($request);
 
          if ($form->isSubmitted() && $form->isValid()) {
+            $beneficiaire->setNom($form->get('nom')->getData())  ;
+        $beneficiaire->setPrenom($form->get('prenom')->getData());
+        $beneficiaire->setTelephone($form->get('telephone')->getData());
+        $beneficiaire->setEmail($form->get('email')->getData());
+        $beneficiaire->setDateNaissance($form->get('dateNaissance')->getData());
+        $beneficiaire->setLieuNaissance($form->get('lieuNaissance')->getData());
+        $beneficiaire->setSexe($form->get('sexe')->getData());
+        $beneficiaire->setClasse($form->get('classe')->getData());
+        $beneficiaire->setReligion($form->get('religion')->getData());
+        $beneficiaire->setNomTuteur($form->get('nomTuteur')->getData());
+        $beneficiaire->setDomicile($form->get('domicile')->getData());
+        $beneficiaire->setAdresse($form->get('adresse')->getData());
+        $beneficiaire->setPrefecture($form->get('prefecture')->getData());
+        $beneficiaire->setRegion($form->get('region')->getData());
+         $beneficiaire->setPays($form->get('pays')->getData());
+        $beneficiaire->setRangOccupe($form->get('rangOccupe')->getData());
+        
+        $beneficiaireAge=$beneficiaire->getAgeMois($form->get('dateNaissance')->getData());
+        $categories=$this->getDoctrine()
+             ->getRepository(Beneficiaire::class)->attribuerCategorie($beneficiaireAge);
+       foreach ($categories as $key => $value) {
+            $categorie=$value;
+            $beneficiaire->setCategorie($categorie);
+        }       
+        
+        $beneficiaire->setNumero($numero);
 
-            $beneficiaire = $form->getData();
+            //$beneficiaire = $form->getData();
              $entityManager->persist($beneficiaire);
              $entityManager->flush();   
                 $this->addFlash("ajoute", "Bénéficiaire ".$beneficiaire->getPrenom()." ".$beneficiaire->getNom()." a été créé(e) avec succès !");
@@ -96,13 +125,18 @@ class BeneficiaireController extends AbstractController
         $form->get('telephone')->setData($beneficiaire->getTelephone());
         $form->get('email')->setData($beneficiaire->getEmail());
         $form->get('dateNaissance')->setData($beneficiaire->getDateNaissance());
+        $form->get('lieuNaissance')->setData($beneficiaire->getLieuNaissance());
         $form->get('sexe')->setData($beneficiaire->getSexe());
+         $form->get('domicile')->setData($beneficiaire->getDomicile());
+          $form->get('region')->setData($beneficiaire->getRegion());
+           $form->get('prefecture')->setData($beneficiaire->getPrefecture());
+            $form->get('pays')->setData($beneficiaire->getPays());
         $form->get('classe')->setData($beneficiaire->getClasse());
         $form->get('religion')->setData($beneficiaire->getReligion());
         $form->get('nomTuteur')->setData($beneficiaire->getNomTuteur());
         $form->get('adresse')->setData($beneficiaire->getAdresse());
         $form->get('rangOccupe')->setData($beneficiaire->getRangOccupe());
-        $form->get('classecde')->setData($beneficiaire->getClassecde());
+        
 
         
         $form->handleRequest($request);
@@ -114,13 +148,18 @@ class BeneficiaireController extends AbstractController
         $beneficiaire->setTelephone($form->get('telephone')->getData());
         $beneficiaire->setEmail($form->get('email')->getData());
         $beneficiaire->setDateNaissance($form->get('dateNaissance')->getData());
+        $beneficiaire->setLieuNaissance($form->get('lieuNaissance')->getData());
         $beneficiaire->setSexe($form->get('sexe')->getData());
         $beneficiaire->setClasse($form->get('classe')->getData());
         $beneficiaire->setReligion($form->get('religion')->getData());
         $beneficiaire->setNomTuteur($form->get('nomTuteur')->getData());
+        $beneficiaire->setDomicile($form->get('domicile')->getData());
         $beneficiaire->setAdresse($form->get('adresse')->getData());
+        $beneficiaire->setPrefecture($form->get('prefecture')->getData());
+        $beneficiaire->setRegion($form->get('region')->getData());
+         $beneficiaire->setPays($form->get('pays')->getData());
         $beneficiaire->setRangOccupe($form->get('rangOccupe')->getData());
-        $beneficiaire->setClassecde($form->get('classecde')->getData());
+        
 
          $entityManager->persist($beneficiaire);
           $entityManager->flush();   

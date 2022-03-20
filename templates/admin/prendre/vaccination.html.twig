@@ -11,7 +11,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ path('admin') }}">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{ path('rapport_vaccination') }}">Retour</a></li>
               <li class="breadcrumb-item active">vaccination</li>
             </ol>
           </div><!-- /.col -->
@@ -21,6 +21,14 @@
     <!-- /.content-header -->
   {% endblock %}
 {% block body %}
+
+  {% if app.session.flashBag.has('ajouterVaccin') %}
+     <div class="col-8 text-center mx-auto alert alert-info">
+            {% for msg in app.session.flashBag.get('ajouterVaccin') %}
+              <p>  {{ msg }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
 
 
   <div class="container py-4">

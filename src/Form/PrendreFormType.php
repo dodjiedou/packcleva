@@ -16,6 +16,9 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Beneficiaire;
 use App\Entity\Vaccin;
+use App\Repository\VaccinRepository;
+use App\Repository\BeneficiaireRepository;
+
 
 
 class PrendreFormType extends AbstractType
@@ -23,25 +26,40 @@ class PrendreFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('datep', DateType::class, [
-                'label' => 'Date de vaccination',
-                'widget' => 'single_text',
-                 'input' => 'string'
-                
-            ])
+            ->add('beneficiaire', EntityType::class, [
+            'class' => Beneficiaire ::class,
+            'choice_label' => function($beneficiaire){
+             return $beneficiaire->getNumero()."  "."(".$beneficiaire->getNom().")";
+         },
+            'label' => 'Numero du Bénéficiaire',
+            'query_builder' =>function(BeneficiaireRepository $beneficiaireRepo){
+                return $beneficiaireRepo->createQueryBuilder('b')->orderBy('b.nom','ASC');
+
+            },
+        ])
+            
+            ->add('vaccin', EntityType::class, [
+            'class' => Vaccin ::class,
+            'choice_label' =>'nom',
+            'query_builder' =>function(VaccinRepository $vaccinRepo){
+                return $vaccinRepo->createQueryBuilder('v')->orderBy('v.nom','ASC');
+
+            },
+        ])
+            
             ->add('dose', ChoiceType::class, [
              'choices'  => [
              'Premier dose' => '1',
              'Deuxième dose' => '2',
              'Troisième dose' => '3',
                 ]])
-            ->add('beneficiaire', EntityType::class, [
-            'class' => Beneficiaire ::class,
-            'choice_label' => 'nom',
-            'label' => 'Numero du Bénéficiaire',])
-            ->add('vaccin', EntityType::class, [
-            'class' => Vaccin ::class,
-            'choice_label' => 'nom'])
+            ->add('datep', DateType::class, [
+                'label' => 'Date de vaccination',
+                'widget' => 'single_text',
+                 'input' => 'string'
+                
+            ])
+            
              ->add('save', SubmitType::class, ['label' => 'Enregistrer','attr'=>['class'=>'btn btn-info w-100']])
         ;
     }

@@ -1,0 +1,78 @@
+ {% extends 'admin/base.html.twig' %}
+
+{% block wrapper %}
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="text-primary m-0"><i class="fas fa-letter"></i> </h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ path('liste_question',{"id":lettre}) }}">Retour</a></li>
+              <li class="breadcrumb-item active">lettre</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+  {% endblock %}
+    
+       
+{% block body %}    
+
+
+    {% if app.session.flashBag.has('modifierreponse') %}
+     <div class="col-8 text-center mx-auto alert alert-info">
+            {% for msg in app.session.flashBag.get('modifierreponse') %}
+              <p>  {{ msg }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+
+  <div class="col-md-8 mx-auto">
+    <div class="card text-center">
+      <div class="card-header">
+        <h2 class="text-info">Reponse</h2>
+      </div>
+      <div class="card-body">
+
+         <h2 class="card-text">
+
+            {% if reponse is null %}
+                La question n'est pas encore répondue
+            {% else %}
+
+              {{reponse.libelle}}
+
+            {% endif %}
+            
+          </h2> 
+         
+      </div>
+      <div class="card-footer text-muted mx-auto">
+         <ul class="nav nav-tabs card-footer-tabs ">
+          {% if reponse is not null %}
+            <li class="nav-item ">
+              <a href="{{ path('edit_reponse', {"id": reponse.id} ) }}" class="btn btn-info btn-sm    " role="button" title="Lien 1"><i class="fas fa-edit"></i>Modifier</a>
+            <!--</li>
+            <li class="nav-item mx-3">
+              <a href="#" class="btn btn-danger btn-sm" role="button" title="Lien 1" desabled><i class="fas fa-trash"></i>Supprimer</a>
+            </li>-->
+            {% endif %}
+            
+         </ul>
+
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
+
+
+

@@ -18,7 +18,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 class RapportAbsenceController extends AbstractController
 {
 
-     #[Route('/rapport', name: 'rapport_absence')]
+     /*#[Route('/rapport', name: 'rapport_absence')]
      public function newRapportClasse(Request $request): Response
      {
         $rapportAbsence = new RapportAbsence();
@@ -132,7 +132,7 @@ class RapportAbsenceController extends AbstractController
          
        
        return $this->render('admin/rapport_absence/absence_categorie.html.twig', ['form' => $form->createView(),'rapports'=> $rapports]);
-    }
+    }*/
 
 
 

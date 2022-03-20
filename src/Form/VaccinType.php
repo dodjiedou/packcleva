@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class VaccinType extends AbstractType
 {
@@ -15,6 +16,7 @@ class VaccinType extends AbstractType
     {
         $builder
             ->add('nom',TextType::class,[ 'label' => 'Nom du vaccin'])
+            ->add('nombreDeDose',IntegerType::class,[ 'label' => 'Nombre De Dose'])
              ->add('save', SubmitType::class, ['label' => 'Creer',
                 'attr'=>['class'=>'btn btn-primary w-100']])
         ;

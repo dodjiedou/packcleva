@@ -47,4 +47,98 @@ class PrendreRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findLastVaccin()
+    {
+       
+       
+        
+        $em = $this->getEntityManager();
+        
+           $qr = $em->createQuery("
+                SELECT v
+                FROM App\Entity\Vaccin v
+                ORDER BY v.id ASC 
+                
+            ");
+           $vaccins=$qr->getResult();
+           foreach ($vaccins as $key => $value) {
+            if ($key==0) {
+                $vaccin=$value;
+            }
+              
+           } 
+
+           return $vaccin;      
+   
+            
+    }
+
+    public function findPrendreByBeneficiaire($beneficiaire,$vaccin)
+    {
+        $em = $this->getEntityManager();
+        
+           $qr = $em->createQuery("
+                SELECT p
+                FROM App\Entity\Prendre p
+                WHERE p.beneficiaire = :beneficiaire 
+                AND p.vaccin = :vaccin 
+                ORDER BY p.id ASC
+            ");
+           $qr->setParameters(array(
+                'beneficiaire' => $beneficiaire,
+                'vaccin' => $vaccin,
+               
+            ));
+
+           return $qr->getResult();      
+    }
+
+
+     public function findDose($beneficiaire,$vaccin)
+    {
+        $em = $this->getEntityManager();
+        $dose=0;
+        
+           $qr = $em->createQuery("
+                SELECT p
+                FROM App\Entity\Prendre p
+                WHERE p.beneficiaire = :beneficiaire 
+                AND p.vaccin = :vaccin 
+                ORDER BY p.id DESC
+            ");
+           $qr->setParameters(array(
+                'beneficiaire' => $beneficiaire,
+                'vaccin' => $vaccin,
+               
+            ));
+
+           $vaccinsDuBeneficiaires=$qr->getResult();   
+           if ($vaccinsDuBeneficiaires == null) {
+
+              $dose=1;
+
+            }else{
+
+                 
+               foreach ($vaccinsDuBeneficiaires as $key => $value) {
+                    if ($key==0) {
+                        $dernierDose=$value;
+                    }
+
+                }
+                $dose=$dernierDose->getDose()+1;
+           
+       }
+
+       return $dose;
+   
+    }
+
+
+
 }
+
+
+
+

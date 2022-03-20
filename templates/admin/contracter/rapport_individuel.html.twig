@@ -24,145 +24,27 @@
 {% block body %}
 
 
- 
-  <div class="px-4">
-   <div class="card py-4 px-4 col-9 ">
-      <div class="row ">
-        <div class="col ">
-         {{ form_start(form) }}
-          <h3>{{ form_row(form.beneficiaire) }}</h3>       
-        </div>
-      </div>
-      <div class="row ">
-        <div class="col">
-          <h3>{{ form_row(form.date1) }}</h3> 
-        </div>
-        <div class="col  ">
-          <h3>{{ form_row(form.date2) }}</h3> 
-        </div>
-      </div>
-      <div class="row ">
-        <div class=" col ">
-          <h3>{{ form_row(form.save) }}     
-          {{ form_end(form) }}
-        </div>   
-      </div>
-   </div>
-</div>
- <div class="py-3 px-4">
-        <h2 class="text-info font-semibold text-xl text-gray-800 leading-tight">
-        {% if beneficiaire is null %}
-            Veuillez selectionner un bénéficiaire 
-        {% else %}
-          Historique sanitaire du bénéficiaire {{beneficiaire.nom}} {{beneficiaire.prenom}}
-
-        {% endif %}
-                 
-        </h2>
- </div>
-     
-
-    
-
-  <!-- /.row -->
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Historique</h3>
-
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0" style="height: 300px;">
-                <table class="table table-head-fixed text-nowrap table-hover table-bordered ">
-                <thead class="table-secondary">
-
-               <tr class="">
-                  
-                  <th class="text-center">Date</th>
-
-                  <th class="text-center">Maladie diagnostiquée</th>
-
-                  <th class="text-center">Catégorie maladie</th>
-
-                  <th class="text-center">Information sur le résultat d'analyse</th>
-
-                  <th class="text-center">Manifestation de la maladie</th>
-
-                  <th class="text-center">Produits prescrits et administrés pour les soin</th>
-
-                  <th class="text-center">Début de l'hospitalisation</th>
-
-                  <th class="text-center">Fin de l'hospitalisation</th>
-
-                  <th class="text-center">Montant des soins et analyses</th>
-
-                  <th class="">Etat du bénéficiaire après manifestation de la maladie</th>
-
-                  <th class="">Nombre de visites éffectuées par la CDE dans le cadre de la maladie</th>
-
-                  <th class="">Nombre de fois que le staff a organisé le prayer support dans le cadre de la maladie</th>
-               </tr>
-              </thead>
-              <tbody>
-
+ <div class="row ">
+  
+  <div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card card card-primary">
+        <div class="card-header text-center"><h3>Veuillez renseigner les champs</h3></div>
+            <div class="card-body">
              
+              {{form_start(form)}}
 
-              {% if contracters %}
-                
-                  {% for contracter in contracters %}
-                  
-                  <tr>
+              {{ form(form) }}
 
-                    <td class="">{{contracter.date}}</td>
 
-                     <td class="px-4 py-2 w-1/4">{{ contracter .maladie.nom }} </td>
-
-                    <td class="">{{ contracter .maladie.categorie }}</td>
-
-                    <td class="">{{contracter .infoAnalyse}}</td>
-
-                    <td class="">{{ contracter .manifestationMaladie }}</td>
-
-                    <td class="">{{contracter .produitPrescrit }}</td>
-
-                    <td class="">{{contracter .debutHospitalisation }}</td>
-
-                    <td class="">{{contracter .finHospitalisation }}</td>
-
-                    <td class="">{{contracter .montantSoin }}</td>
-
-                    <td class="">{{contracter .etatBeneficiaire }}</td>
-
-                    <td class="">{{contracter .nombreVisite }}</td>
-
-                    <td class="">{{contracter .nombrePrayerSupport }}</td>
-                    
-                {% endfor %}
-                {% endif %}
-                
-              </tbody>
-                  
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
+              {{form_end(form)}}
+         </div>     
         </div>
-        
-        
+      </div>
+    </div>
+  </div>
+</div>
           
 
 {% endblock %}

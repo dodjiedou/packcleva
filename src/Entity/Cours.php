@@ -39,9 +39,12 @@ class Cours
      */
     private $classes;
 
+    
+
     public function __construct()
     {
         $this->classes = new ArrayCollection();
+       
     }
 
     public function getId(): ?int
@@ -108,4 +111,6 @@ class Cours
 
         return $this;
     }
+
+    
 }

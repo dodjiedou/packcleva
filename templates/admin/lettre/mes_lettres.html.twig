@@ -1,0 +1,91 @@
+{% extends 'admin/base.html.twig' %}
+
+
+{% block wrapper %}
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="text-info m-0"><i class="fas fa-envelope-open-text"></i> Lettres</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ path('liste_lettre') }}">Retour</a></li>
+              <li class="breadcrumb-item active">lettre</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+  {% endblock %}
+
+{% block body %}
+
+      {% if app.session.flashBag.has('modifierlettre') %}
+     <div class="col-8 text-center mx-auto alert alert-info">
+            {% for msg in app.session.flashBag.get('modifierlettre') %}
+              <p>  {{ msg }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+
+       <div class=" py-4 ">
+          <div class="card table-responsive-sm">
+            <table  id="example1" class="table table-hover px-3 py-4  ">
+              <thead >
+                <tr class="table-secondary">
+                  <th class="">N°</th>
+                  <th lass=""">CORRESPONDANT</th>
+                  <th class="">REÇUE/ENVOYÉE</th>
+                  <th class="">DATE D'EXPÉDITION</th>
+                  <th class="">DATE DE RÉCEPTION</th>
+                 <th colspan="4" class="text-center">ACTIONS</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                {% for lettre in lettres %}
+
+                  <tr>
+
+                    <td class="">{{ lettre.id }}</td>
+
+                    <td class="">{{lettre.correspondant }} </td>
+
+                    <td class="">{{ lettre.envoiReception }}</td>
+
+                    <td  class="">{{lettre.dateExpedition|date("d-m-Y")}}</td>
+
+                    <td  class="">{{lettre.dateReception|date("d-m-Y") }}</td>
+
+                    <td style="width: 150px" class=""><a href="{{ path('create_question' , {"id": lettre.id}) }}" class="btn btn-primary btn-sm rounded  " role="button" title=""><i class="fas fa-hdd"></i> add Question</a> </td>
+
+                    <td style="width: 120px" class=""><a href="{{ path('liste_question', {"id": lettre.id} ) }}" class="btn btn-info btn-sm rounded  " role="button" title=""><i class="fas fa-eye"></i>Questions</a> </td>
+
+                    <td style="width: 80px" class="">
+                    <a href="{{ path('edit_lettre', {"id": lettre.id}) }}" class="btn btn-warning btn-sm rounded  " role="button" title="Lien 1"> <i class="fas fa-pencil-alt"></i>Edit</a> </td>
+
+                    <td style="width: 100px" class="">
+                    <a href="{{ path('delete_lettre', {"id": lettre.id} ) }}" class="btn btn-danger btn-sm rounded  " role="button" title="Lien 1">  <i class="fas fa-trash"></i>Delete</a> </td>
+
+                
+
+                    
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+    </div>
+  </div> 
+
+{% endblock %}
+
+
+
+  
+
+

@@ -31,6 +31,7 @@ class ReponseType extends AbstractType
                 'class' => Question ::class,
                 'choice_label' => 'libelle',
                 'label' => 'Veuiler choisir la question',
+                'disabled' => true,
             ])
             ->add('libelle',TextareaType::class,[ 'label' => 'Vruillez saisir la reponse'])
            

@@ -1,0 +1,84 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block wrapper %}
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="text-info m-0">Sensibilisation</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ path('liste_sensibilisation') }}">Retour</a></li>
+              <li class="breadcrumb-item active">sensibilisation</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header --> 
+
+     {% endblock %}    
+
+        {% block body %}
+
+    <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card  card-info">
+                <div class="card-header text-center">Fiche d'une
+                    sensibilisation</div>
+                        <div class="card-body">
+                         {% for sensibilisation in sensibilisations %}
+
+                            <h4>DATE PREVUE</h4>
+                            <p>{{ sensibilisation.datePrevue|date("d-m-Y") }}</p>
+                            
+                            <h4>THEME</h4>
+                            <p>{{ sensibilisation.theme }}</p>
+
+                            <h4>DOMAINE</h4>
+                            <p>{{ sensibilisation.domaine }}</p>
+
+                            <h4>ANIMATEUR</h4>
+                            <p>{{ sensibilisation.animateur }}</p>
+
+                            <h4>FACILITATEUR</h4>
+                            <p>{{ sensibilisation.facilitateur }}</p>
+
+                            <h4>PARTICIPANT CIBLE</h4>
+                            <p>{{ sensibilisation.participantCible}}</p>
+
+                            <h4>DATE D'ANNONCE</h4>
+                            <p>{{ sensibilisation.dateAnnonce|date("d-m-Y")}}</p>
+
+                            <h4>DATE DE RENCONTRE</h4>
+                            <p>{{ sensibilisation.dateRencontre|date("d-m-Y") }}</p>
+
+                            <h4>HEURE DE DEBUT</h4>
+                            <p>{{ sensibilisation.heureDebut|date("h:m:s") }}</p>
+
+                            <h4>HEURE DE FIN</h4>
+                            <p>{{ sensibilisation.heureFin|date("h:m:s") }}</p>
+
+                            <h4>POINT CLÉ</h4>
+                            <p>{{ sensibilisation.pointcle}}</p>
+
+                            <h4>DÉPENSE</h4>
+                            <p>{{ sensibilisation.depense}}</p>
+
+                            <h4>INDICATEUR D'IMPACT</h4>
+                            <p>{{ sensibilisation.indicateurImpact }}</p>
+
+                        {% endfor %}
+                     </div>          
+                </div>
+            </div>
+        </div>
+    </div>
+
+        {% endblock %}
+
+       

@@ -57,7 +57,7 @@
                   <th class="">N°</th>
                   <th lass=""">NOM ET PRENOM</th>
                   <th class="">SEXE</th>
-                  <th class="">DATE DE NAISSANCE</th>
+                  <th class="">AGE</th>
                   
                   <th class="">TELEPHONE</th>
                  <th colspan="3" class="text-center">ACTIONS</th>
@@ -69,13 +69,13 @@
 
                   <tr>
 
-                    <td class="">TG00{{ beneficiaire.id }}</td>
+                    <td class=""> {{ beneficiaire.numero }}</td>
 
                     <td class="">{{ beneficiaire.nom }} {{ beneficiaire.prenom }}</td>
 
                     <td class="">{{ beneficiaire.sexe }}</td>
 
-                    <td class="">{{beneficiaire.dateNaissance }}</td>
+                    <td class="">{{beneficiaire.getAge(beneficiaire.dateNaissance) }}</td>
 
 
                     <td class="">{{ beneficiaire.telephone }}</td>

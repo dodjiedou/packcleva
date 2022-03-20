@@ -1,0 +1,81 @@
+{% extends 'admin/base.html.twig' %}
+
+
+{% block wrapper %}
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="text-info m-0"><i class="fas fa-envelope-open-text"></i> Lettres</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ path('admin') }}">Home</a></li>
+              <li class="breadcrumb-item active">lettre</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+  {% endblock %}
+
+{% block body %}
+
+        <h4 class="text-info">LISTE DES BÉNEFICIAIRES AYANT RECU AU MOINS UNE LETTRE</h4>
+       <div class=" py-4 ">
+          <div class="card table-responsive-sm">
+            <table   class="table table-hover px-3 py-4  ">
+              <thead >
+                <tr class="">
+                  <th class="">N°</th>
+                  <th lass=""">NOM ET PRENOM</th>
+                  <th class="">SEXE</th>
+                  <th class="">DATE DE NAISSANCE</th>
+                   <th class="">AGE</th>
+                  <th class="">TELEPHONE</th>
+                 <th colspan="2" class="text-center">ACTIONS</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                {% for beneficiaire in beneficiaires %}
+
+                  <tr>
+
+                    <td class="">{{ beneficiaire.id }}</td>
+
+                    <td class="">{{ beneficiaire.nom }} {{ beneficiaire.prenom }}</td>
+
+                    <td class="">{{ beneficiaire.sexe }}</td>
+
+                    <td class="">{{beneficiaire.dateNaissance }}</td>
+
+                    <td class="">{{ beneficiaire.getAge(beneficiaire.dateNaissance) }}</td>
+
+                    <td class="">{{ beneficiaire.telephone }}</td>
+
+                    <td class=""> <a href="{{ path('ajouter_lettre', {"id": beneficiaire.id} ) }}" class="btn btn-primary btn-sm rounded  " role="button" title=""><i class="fas fa-plus-square"></i>Ajouter une lettre</a> </td>
+
+
+                    <td class=""><a href="{{ path('meslettres', {"id": beneficiaire.id} ) }}" class="btn btn-info btn-sm rounded  " role="button" title=""><i class="fas fa-eye"></i>Mes lettres</a> </td>
+
+                
+
+                    
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+    </div>
+  </div> 
+
+{% endblock %}
+
+
+
+  
+
+

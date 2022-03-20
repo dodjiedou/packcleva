@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Contracter;
 use App\Entity\Beneficiaire;
+use App\Repository\BeneficiaireRepository;
 use App\Entity\Maladie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,24 +30,55 @@ class ContracterFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+        ->add('beneficiaire', EntityType::class, [
+            'class' => Beneficiaire ::class,
+            'choice_label' => function($beneficiaire){
+             return $beneficiaire->getNumero()."  "."(".$beneficiaire->getNom().")";
+         },
+            'label' => 'Numero du Bénéficiaire',
+            'query_builder' =>function(BeneficiaireRepository $beneficiaireRepo){
+                return $beneficiaireRepo->createQueryBuilder('b')->orderBy('b.nom','ASC');
+
+            },
+        ])
             ->add('date',DateType::class, [
-                'label' => "Date de debut de la maladie",
+                'label' => "Date de consultation",
                 'widget' => 'single_text',
                 'input' => 'string',
                 'required'=> true,
             ])
-            ->add('infoAnalyse',TextareaType::class, [
-                'label' => "Information d'analyse",
-                'required'=> false,
-                ])
+            
             ->add('manifestationMaladie',TextareaType::class, [
-                'label' => "Manifestation de la maladie",
+                'label' => "Description de la manifestation de la maladie",
                 'required'=> false,
                 ])
+
+            ->add('infoAnalyse',TextareaType::class, [
+                'label' => "Analyses demandées",
+                'required'=> false,
+                ])
+            ->add('diagnostique',TextareaType::class, [
+                'label' => "Diagnostique",
+                'required'=> false,
+                'mapped'=> false,
+                ])
+
             ->add('produitPrescrit',TextareaType::class, [
                 'label' => "Produits prescrits",
                 'required'=> false,
                 ])
+            ->add('montantSoin',MoneyType::class, [
+                'label' => "Montant des soins",
+                'currency'=> 'XOF',
+                'required'=> false,
+                ])
+            ->add('debutTraitement', DateType::class, [
+                'label' => "Debut de traitement",
+                'widget' => 'single_text',
+                'input' => 'string',
+                'required'=> false,
+                'mapped'=> false,
+            ])
             ->add('debutHospitalisation', DateType::class, [
                 'label' => "Debut d'hospitalisation",
                 'widget' => 'single_text',
@@ -59,11 +91,7 @@ class ContracterFormType extends AbstractType
                 'input' => 'string',
                 'required'=> false,
             ])
-            ->add('montantSoin',MoneyType::class, [
-                'label' => "Montant des soins",
-                'currency'=> 'XOF',
-                'required'=> false,
-                ])
+            
             ->add('etatBeneficiaire',TextType::class, [
                 'label' => "Etat du bénéficiaire après manifestation de la maladie",
                 'required'=> false,
@@ -83,13 +111,7 @@ class ContracterFormType extends AbstractType
                 'required'=> true,
                 
             ])
-            ->add('beneficiaire',EntityType::class, [
-                'class' => Beneficiaire::class,
-                'choice_label' => 'nom',
-                'label' => 'Beneficiaire',
-                'required'=> true,
-                
-            ])
+           
             ->add('save', SubmitType::class, ['label' => 'Enregistrer','attr'=>['class'=>'btn btn-primary w-100']])
         ;
     }

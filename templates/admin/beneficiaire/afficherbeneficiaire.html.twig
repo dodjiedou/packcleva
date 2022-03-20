@@ -28,48 +28,57 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card  card-info">
-                <div class="card-header text-center">Fiche d'un
-                    beneficiaire</div>
+                <div class="card-header text-center"><h3>Fiche du
+                    Bénéficiaire {{benef.numero}} </h3></div>
                         <div class="card-body">
                             
-                            <h4>Nom</h4>
-                            <p>{{ benef.nom }}</p>
+                            <h4>Nom&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;: <strong>{{ benef.nom }}</strong></h4>
                             
-                            <h4>Prenom</h4>
-                            <p>{{ benef.prenom }}</p>
+                            
+                            <h4>Prenom &ensp;&emsp;&emsp;&emsp;&emsp;: <strong>{{ benef.prenom }}</strong></h4>
+                            
 
-                            <h4>Age</h4>
-                            <p>{{ benef.getAge(benef.dateNaissance) }}</p>
+                            <h4>Age&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;: <strong>{{  benef.getAge(benef.dateNaissance) }}</strong></h4>
+                            
 
-                            <h4>Telephone</h4>
-                            <p>{{ benef.telephone }}</p>
+                            <h4>Telephone &ensp;&emsp;&emsp;&emsp;: <strong>{{ benef.telephone }}</strong></h4>
+                            
 
-                            <h4>Email</h4>
-                            <p>{{ benef.email }}</p>
+                            <h4>Email &ensp;&emsp;&emsp;&emsp;&emsp;&emsp;: <strong>{{ benef.email }}</strong></h4>
+                            
 
-                            <h4>Date de naissance</h4>
-                            <p>{{ benef.dateNaissance }}</p>
+                            <h4>Date de naissance &ensp;: <strong>{{ benef.dateNaissance}}</strong></h4>
 
-                            <h4>Sexe</h4>
-                            <p>{{ benef.sexe }}</p>
+                            <h4>Lieu de naissance &ensp;: <strong>{{ benef.lieuNaissance}}</strong></h4>
+                           
 
-                            <h4>Classe</h4>
-                            <p>{{ benef.classe }}</p>
+                            <h4>Sexe &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;: <strong>{{ benef.sexe}}</strong></h4>
+                          
 
-                            <h4>Religion</h4>
-                            <p>{{ benef.religion }}</p>
+                            <h4>Classe&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;: <strong>{{ benef.classe }}</strong></h4>
+                           
+                            <h4>Religion&emsp;&emsp;&emsp;&emsp;&emsp;: <strong>{{benef.religion }}</strong></h4>
 
-                            <h4>Nom du tuteur</h4>
-                            <p>{{ benef.nomTuteur }}</p>
+                           
+                            <h4>Nom du tuteur &emsp;&emsp;: <strong>{{ benef.nomTuteur }}</strong></h4>
 
-                            <h4>Village/ville</h4>
-                            <p>{{ benef.adresse }}</p>
+                            <h4>Domicile/Quartier&emsp;: <strong>{{ benef.domicile }}</strong></h4>
+                            
 
-                            <h4>Rang Occupé</h4>
-                            <p>{{ benef.rangOccupe }}</p>
+                            <h4>Village/ville&ensp;&emsp;&emsp;&emsp;: <strong>{{ benef.adresse }}</strong></h4>
 
-                            <h4>Classe au CDE</h4>
-                            <p>{{ benef.classeCde.nom }}</p>
+                            <h4>Prefecture/Zone&ensp;&emsp;: <strong>{{ benef.prefecture }}</strong></h4>
+
+                            <h4>Region&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;: <strong>{{ benef.region}}</strong></h4>
+
+                            <h4>Pays&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;: <strong>{{ benef.pays }}</strong></h4>
+                           
+
+                            <h4>Rang Occupé &ensp;&emsp;&emsp;: <strong>{{ benef.rangOccupe }}</strong></h4>
+                           
+
+                            <h4>Classe au CDE&ensp;&emsp;&emsp;: <strong>{{ benef.classeCde.nom  }}</strong></h4>
+                            
 
                         </div>          
                 </div>

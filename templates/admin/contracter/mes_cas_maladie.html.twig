@@ -1,0 +1,105 @@
+
+{% extends 'admin/base.html.twig' %}
+
+{% block wrapper %}
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="text-info m-0"><i class="fas fa-th-list"></i> Listes des bénéficiaires par maladie</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ path('contracter_maladie') }}">Retour</a></li>
+              <li class="breadcrumb-item active">maladie</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+  {% endblock %}
+
+{% block body %} 
+
+
+<div class="py-2 px-3">
+      <div class="row">
+        <div class="col ">
+          {% if app.session.flashBag.has('modifierc') %}
+            <div class="col-6 text-center mx-auto alert alert-success">
+                {% for msg in app.session.flashBag.get('modifierc') %}
+                  <p>  {{ msg }}</p>
+                {% endfor %}
+
+             </div>
+          {% endif %}
+        </div>
+      </div>
+   </div>
+
+   
+
+   <div class="px-4">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight ">
+        
+        {% if maladie is not  null %}
+           Les traitements subis par le bénéficiaire {{beneficiaire.numero}} ({{beneficiaire.nom}})pour {{maladie.nom}} 
+
+        {% endif %}
+                   
+        </h2>
+    </div>
+  
+      <div class=" px-3 py-4 ">
+          <div class="card table-responsive-lg">
+            <table class="table  able-hover  ">
+              <thead >
+                <tr class="table-secondary">
+
+                  <th class="text-center">Date de consultation </th>
+
+                  <th class="text-center">Description de la manifestation de la maladie</th>
+                  
+                  <th class="text-center">Analyses demandées</th>
+
+                  <th class="text-center">Produits prescrits</th>
+
+                 
+                  <th colspan="3" class="text-center">Actions</th>
+                  
+                  
+                </tr>
+              </thead>
+              <tbody>
+                {% for contracter in contracters %}
+                  
+                  <tr>
+
+                    <td class="">{{contracter .date }}</td>
+
+                    <td class="">{{contracter .manifestationMaladie }}</td>
+
+                    
+
+                    <td class="">{{contracter .infoAnalyse  }}</td>
+
+                    <td class="">{{contracter .produitPrescrit   }}</td>
+
+                    <td style="width: 130px" class=""><a href="{{ path('showconsultation', {"id": contracter.id} ) }}" class="btn btn-primary btn-sm  " role="button" title="Lien 1"><i class="fas fa-glasses"></i>Voir</a> </td>
+
+                    <td style="width: 130px" class=""><a href="{{ path('edit_contracter', {"id": contracter.id} ) }}" class="btn btn-info btn-sm    " role="button" title="Lien 1"><i class="fas fa-edit"></i>Modifier</a> </td>
+
+                    
+                {% endfor %}
+              </tbody>
+            </table>
+    </div>
+  </div>
+          
+{% endblock %}
+
+
+    

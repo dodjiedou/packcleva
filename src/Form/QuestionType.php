@@ -32,14 +32,11 @@ class QuestionType extends AbstractType
                 'class' => Lettre ::class,
                 'choice_label' => 'Correspondant',
                 'label' => 'Vruillez choisir la lettre',
+                'disabled' => true,
             ])
             ->add('libelle',TextareaType::class,[ 'label' => 'Vruillez saisir la question'])
             
-            ->add('reponse', EntityType::class, [
-                'class' => Reponse ::class,
-                'choice_label' => 'libelle',
-                'label' => 'Reponse ',
-            ])
+            
             ->add('save', SubmitType::class, ['label' => 'Valider',
                   'attr' => ['class' => 'btn-primary w-100']])
         ;

@@ -10,8 +10,8 @@
             {% block title %}CLAVA | Dashboard
             {% endblock %}
          </title>
+      
         
-        {% block stylesheets %}
          <!-- Google Font: Source Sans Pro -->
          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
           <!-- Tempusdominus Bootstrap 4 -->
@@ -21,6 +21,8 @@
           <link rel="stylesheet" href="../../admin/plugins/fontawesome-free/css/all.min.css">
           <!-- Ionicons -->
           <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css" />
+
          
           <!-- iCheck -->
           <link rel="stylesheet" href="../../admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
@@ -49,7 +51,7 @@
           <link rel="stylesheet" href="../../admin/dist/css/adminlte.min.css">
 
           <!--/table-->
-
+       {% block stylesheets %} 
 
         {% endblock %}
 
@@ -283,12 +285,12 @@
                             </p>
                           </a>
                           <ul class="nav nav-treeview">
-                            <li class="nav-item">
+                        <!--<li class="nav-item">
                         <a href="{{ path('vaccination') }}" class="nav-link">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Enregistrer un cas de vaccination </p>
                         </a>
-                      </li>
+                      </li>-->
                       <li class="nav-item">
                         <a href="{{ path('rapport_vaccination') }}" class="nav-link">
                           <i class="far fa-circle nav-icon"></i>
@@ -322,12 +324,12 @@
                                 <p>Liste des bénéficiaires par cas de maladie</p>
                               </a>
                             </li>
-                            <li class="nav-item">
+                            <!--<li class="nav-item">
                               <a href="{{ path('consultation') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Consultations et soins médicaux  </p>
                               </a>
-                            </li>
+                            </li>-->
 
                             <li class="nav-item">
                               <a href="{{ path('rapport_general') }}" class="nav-link">
@@ -350,7 +352,7 @@
                     <a href="#" class="nav-link">
                       <i class="nav-icon fas fa-graduation-cap"></i>
                       <p>
-                        Éducation
+                        Activités
                         <i class="right fas fa-angle-left"></i>
                       </p>
                     </a>
@@ -384,18 +386,61 @@
                             </p>
                           </a>
                           <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                              <a href="{{ path('absence_classe') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Classe</p>
+                             <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-graduation-cap"></i>
+                      <p>
+                        Niveau classes
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                      <a href="{{path('absence_classe') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                           <p>Par Séance</p>
                               </a>
-                            </li>
-                            <li class="nav-item">
-                              <a href="{{ path('rapport_absence_categorie') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Catégorie</p>
-                              </a>
-                            </li>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{{ path('absence_classe_date') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>par Date</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{{ path('absence_classe_periode') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Par periode</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+
+                   <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-graduation-cap"></i>
+                      <p>
+                        Niveau categories
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                        <a href="{{ path('absence_categorie_date') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Par Date</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{{ path('absence_categorie_periode') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Par Période</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                            
+                            
                           </ul>
                         </li>
                      </li>
@@ -405,7 +450,7 @@
                     <a href="#" class="nav-link">
                       <i class="nav-icon fas fa-gift"></i>
                       <p>
-                        Cadeau
+                        Distribution des kits
                         <i class="fas fa-angle-left right"></i>
                       </p>
                     </a>
@@ -426,9 +471,9 @@
                   </li>
                   <li class="nav-item">
                     <a href="#" class="nav-link">
-                      <i class="nav-icon fas fa-mail-bulk"></i>
-                      Lettre
-                      
+                     <i class="nav-icon fas fa-mail-bulk"></i>
+                      <p>
+                        Lettre
                         <i class="fas fa-angle-left right"></i>
                       </p>
                     </a>
@@ -440,9 +485,35 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="pages/forms/advanced.html" class="nav-link">
+                        <a href="{{ path('liste_lettre') }}" class="nav-link">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Mes lettres</p>
+                        </a>
+                      
+                    </ul>
+                  </li>
+                  
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-table"></i>
+                      <p>
+                       Visite
+                        <i class="fas fa-angle-left right"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                       
+                      <li class="nav-item">
+                        <a href="{{ path('create_visite') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Enregistrer une visite</p>
+                        </a>
+                      </li>
+                       
+                      <li class="nav-item">
+                        <a href="{{ path('liste_beneficiaire_visite') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Les visites</p>
                         </a>
                       </li>
                     </ul>
@@ -451,27 +522,21 @@
                     <a href="#" class="nav-link">
                       <i class="nav-icon fas fa-table"></i>
                       <p>
-                        Tables
+                      Sensibilisation
                         <i class="fas fa-angle-left right"></i>
                       </p>
                     </a>
                     <ul class="nav nav-treeview">
                       <li class="nav-item">
-                        <a href="pages/tables/simple.html" class="nav-link">
+                        <a href="{{ path('create_sensibilisation') }}" class="nav-link">
                           <i class="far fa-circle nav-icon"></i>
-                          <p>Simple Tables</p>
+                          <p>Enregistrer une sensibilisation</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="pages/tables/data.html" class="nav-link">
+                        <a href="{{ path('liste_sensibilisation') }}" class="nav-link">
                           <i class="far fa-circle nav-icon"></i>
-                          <p>DataTables</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="pages/tables/jsgrid.html" class="nav-link">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>jsGrid</p>
+                          <p>Les sensibilisations</p>
                         </a>
                       </li>
                     </ul>
@@ -548,7 +613,9 @@
             <script src="../../admin/dist/js/demo.js"></script>
             <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
             <script src="../../admin/dist/js/pages/dashboard.js"></script>
-            
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+           
 
         {% block javascripts %}
 

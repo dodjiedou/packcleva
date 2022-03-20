@@ -37,6 +37,14 @@ class Suivi
      */
     private $rapport;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Visite::class, inversedBy="suivi", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $visite;
+
+   
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,4 +97,17 @@ class Suivi
 
         return $this;
     }
+
+    public function getVisite(): ?Visite
+    {
+        return $this->visite;
+    }
+
+    public function setVisite(Visite $visite): self
+    {
+        $this->visite = $visite;
+
+        return $this;
+    }
+
 }

@@ -14,6 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use App\Repository\VaccinRepository;
 
 
 class RapportVaccinationType extends AbstractType
@@ -26,7 +27,11 @@ class RapportVaccinationType extends AbstractType
                 'class' => Vaccin::class,
                 'choice_label' => 'nom',
                'label' => '',
-                //'placeholder' => 'choisir'
+               'query_builder' =>function(VaccinRepository $vaccinRepo){
+                return $vaccinRepo->createQueryBuilder('v')->orderBy('v.nom','ASC');
+
+            },
+                
             ])
 
           ->add('save', SubmitType::class, ['label' => 'Valider'])

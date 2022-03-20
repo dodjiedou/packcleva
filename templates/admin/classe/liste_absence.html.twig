@@ -1,0 +1,124 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block wrapper %}
+
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="text-info m-0"><i class="fas fa-school"></i> Classe</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ path('classe') }}">Retour</a></li>
+              <li class="breadcrumb-item active"></li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    {% endblock %}
+
+                
+
+    {% block body %}
+
+   
+      <div class=" px-3 py-4 ">
+      <h2>Infos sur la séance</h2>
+          <div class="card table-responsive-sm">
+            <table class="table    table-hover ">
+              <thead >
+                <tr class="table-secondary">
+      
+                  <th class="">Activité</th>
+                  <th class="">Classe</th>
+                  <th lass="">Date de séance</th>
+                  <th class="">Heure debut</th>
+                  <th class="">Heure fin</th>
+                  
+                  
+                </tr>
+              </thead>
+              <tbody>
+              
+                  <tr>
+
+                    <td class="">{{ seance.activite }}</td>
+
+                     <td class="">{{ seance.classe.nom }}</td>
+
+                    <td class="">{{ seance.dateSeance|date("d-m-Y") }}</td>
+
+                    <td class="px-4 py-2 w-1/4">{{ seance.heureDebutSeance|date("h:m:s") }} </td>
+
+                    <td class="">{{ seance.heureFinSeance|date("h:m:s") }}</td>
+
+                    
+                    
+
+                  </tr>
+               
+              </tbody>
+            </table>
+    </div>
+  </div>  
+
+  <div class=" px-3 py-4 ">
+      <h2>Liste des bénéficiaires</h2>
+          <div class="card table-responsive-sm">
+            <table class="table    table-hover ">
+              <thead >
+                <tr class="table-secondary">
+      
+                  <th class="">N°</th>
+                  <th class="r">Nom</th>
+                  <th class="">Prénom</th>
+                  <th class="text-center">Affecter une absence</th>
+                  <th class="text-center">Absence dejà affectée</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+               
+                {% for line,val1 in tabAbsence %}
+                 
+
+                  <tr>
+
+                    <td class="">{{ tabAbsence[line][1]}}</td>
+
+                    <td class=" ">{{ tabAbsence[line][2]}} </td>
+
+                    <td class="">{{ tabAbsence[line][3]}}</td>
+
+                   {% if tabAbsence[line][4]==1  %}
+
+                    <td  class="text-center">
+                    <a href="#" class="btn btn-danger mb-2 btn-sm " role="button" title="Lien 1">  <i class="fas fa-trash"></i></a> </td>
+
+                    <td class="text-center"><p>Oui</p></td>
+
+                    {% else %}
+
+                    <td  class="text-center">
+                    <a href="{{ path('affecter_absence', {"ids": seance.id,"idb": tabAbsence[line][5]}) }}" class="btn btn-danger mb-2 btn-sm " role="button" title="Lien 1">  <i class="fas fa-trash"></i></a> </td>
+
+                    <td class="text-center"></td>
+                    {% endif %}
+
+
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+    </div>
+  </div>  
+  
+  
+  {% endblock %}
+
+        

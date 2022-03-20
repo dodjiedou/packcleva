@@ -1,0 +1,100 @@
+ {% extends 'admin/base.html.twig' %}
+
+{% block wrapper %}
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="text-primary m-0"><i class="fas fa-letter"></i> </h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ path('mes_visites',{"id":beneficiaireId}) }}">Retour</a></li>
+              <li class="breadcrumb-item active">visite</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+  {% endblock %}
+    
+       
+{% block body %}    
+
+
+    {% if app.session.flashBag.has('modifiersuivi') %}
+     <div class="col-8 text-center mx-auto alert alert-info">
+            {% for msg in app.session.flashBag.get('modifiersuivi') %}
+              <p>  {{ msg }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+
+  <div class="col-md-8 mx-auto">
+    <div class="card ">
+      <div class="card-header">
+      {% if suivi is not null %}
+        <h2 class="text-info text-center">
+        {{ suivi.visite.categorieVisite.nom }} faite à {{ suivi.visite.beneficiaire.nom }} {{ suivi.visite.beneficiaire.prenom }} le {{suivi.visite.date|date("d-m-Y")}}</h2>
+        {% else %}
+         <h2 class="text-info text-center">Visite</h2>
+        {% endif %}
+      </div>
+      <div class="card-body">
+
+         
+
+            {% if suivi is null %}
+             <h2 class=" text-center">le suivi n'est pas encore fait</h2>
+                
+            {% else %}
+                            
+                       <h2 class="">     
+
+                            <h4>OBSERVATION</h4>
+                            <p>{{ suivi.observation }}</p>
+                            
+                            <h4>DATE DE DEBUT DU SUIVI</h4>
+                            <p>{{ suivi.dateDebut|date("d-m-Y") }}</p>
+
+                            <h4>DATE DE FIN DU SUIVI</h4>
+                            <p>{{ suivi.dateFin|date("d-m-Y") }}</p>
+
+                            <h4>RAPPORT DU SUIVI</h4>
+                            <p>{{ suivi.rapport }}</p>
+
+                            
+
+                        </h2>     
+                          
+            
+
+            {% endif %}
+            
+          
+         
+      </div>
+      <div class="card-footer text-muted mx-auto">
+         <ul class="nav nav-tabs card-footer-tabs ">
+          {% if suivi is not null %}
+            <li class="nav-item ">
+              <a href="{{path('edit_suivi',{"id":suivi.id}) }}" class="btn btn-info btn-sm    " role="button" title="Lien 1"><i class="fas fa-edit"></i>Modifier</a>
+            </li>
+            
+            {% endif %}
+            
+         </ul>
+
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
+
+
+

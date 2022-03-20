@@ -23,12 +23,12 @@ class CadeauNiveauEtudeType extends AbstractType
         $builder
            ->add('nomArticle',TextType::class,[ 'label' => 'Article'])
             ->add('mesureArticle',TextType::class,[ 'label' => 'Mesure'])
-            ->add('nombreFille',IntegerType::class, [
-                'label' => "Nombre de Fille",
+             ->add('nombreFille',IntegerType::class, [
+                'label' => "Quantité pour les Filles",
                 'required'=> false,
                 ])
             ->add('nombreGarcon',IntegerType::class, [
-                'label' => "Nombre de Garçon ",
+                'label' => "Quantité pour les Garçons ",
                 'required'=> false,
                 ])
             ->add('niveauEtude',ChoiceType::class, [

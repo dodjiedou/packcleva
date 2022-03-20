@@ -42,10 +42,7 @@ class Beneficiaire
 
     
 
-    /**
-     * @ORM\Column(type="string", length=15)
-     */
-    private $dateNaissance;
+    
 
     /**
      * @ORM\Column(type="string", length=15)
@@ -109,6 +106,51 @@ class Beneficiaire
      */
     private $lettres;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Visite::class, mappedBy="beneficiaire", orphanRemoval=true)
+     */
+    private $visites;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $domicile;
+
+    /**
+     * @ORM\Column(type="string", length=150)
+     */
+    private $prefecture;
+
+    /**
+     * @ORM\Column(type="string", length=150)
+     */
+    private $region;
+
+    /**
+     * @ORM\Column(type="string", length=150)
+     */
+    private $pays;
+
+    /**
+     * @ORM\Column(type="string", length=150)
+     */
+    private $lieuNaissance;
+
+    /**
+     * @ORM\Column(type="string", length=15)
+     */
+    private $numero;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Absence::class, mappedBy="beneficiaire", orphanRemoval=true)
+     */
+    private $absences;
+
+    /**
+     * @ORM\Column(type="string", length=15)
+     */
+    private $dateNaissance;
+
 
     public function __construct()
     {
@@ -116,6 +158,9 @@ class Beneficiaire
         $this->contracters = new ArrayCollection();
         $this->prendres = new ArrayCollection();
         $this->lettres = new ArrayCollection();
+        $this->visites = new ArrayCollection();
+        $this->absences = new ArrayCollection();
+        
        
     }
 
@@ -175,18 +220,7 @@ class Beneficiaire
 
    
 
-    public function getDateNaissance(): ?string
-    {
-        return $this->dateNaissance;
-    }
-
-    public function setDateNaissance(string $dateNaissance): self
-    {
-        $this->dateNaissance = $dateNaissance;
-
-        return $this;
-    }
-
+   
     public function getSexe(): ?string
     {
         return $this->sexe;
@@ -317,12 +351,34 @@ class Beneficiaire
     public function getAge($date) 
     {
         $age = date('Y') - date('Y', strtotime($date));
-        if (date('md') < date('md', strtotime($date))) {
-        return $age - 1;
+        
+        if (date('m') < date('m ', strtotime($date))) {
+        return ($age - 1);
         }
          return $age;
     }
 
+    public function getAgeMois($date) 
+    {
+        $age = date('Y') - date('Y', strtotime($date));
+        
+        if (date('m') < date('m ', strtotime($date))) {
+            $mois=(12-(date('m ', strtotime($date))-date('m')));
+        }else{
+             $mois=(12- (date('m')-date('m ', strtotime($date))));
+        }
+        if (date('m') < date('m ', strtotime($date))) {
+        return ($age - 1).",".$mois;
+        }
+         return $age.",".$mois;
+    }
+
+   
+
+
+
+
+   
    
 
     public function getAdresse(): ?string
@@ -391,7 +447,154 @@ class Beneficiaire
         return $this;
     }
 
-    
+    /**
+     * @return Collection|Visite[]
+     */
+    public function getVisites(): Collection
+    {
+        return $this->visites;
+    }
+
+    public function addVisite(Visite $visite): self
+    {
+        if (!$this->visites->contains($visite)) {
+            $this->visites[] = $visite;
+            $visite->setBeneficiaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVisite(Visite $visite): self
+    {
+        if ($this->visites->removeElement($visite)) {
+            // set the owning side to null (unless already changed)
+            if ($visite->getBeneficiaire() === $this) {
+                $visite->setBeneficiaire(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDomicile(): ?string
+    {
+        return $this->domicile;
+    }
+
+    public function setDomicile(string $domicile): self
+    {
+        $this->domicile = $domicile;
+
+        return $this;
+    }
+
+    public function getPrefecture(): ?string
+    {
+        return $this->prefecture;
+    }
+
+    public function setPrefecture(string $prefecture): self
+    {
+        $this->prefecture = $prefecture;
+
+        return $this;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    public function setRegion(string $region): self
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    public function getPays(): ?string
+    {
+        return $this->pays;
+    }
+
+    public function setPays(string $pays): self
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
+    public function getLieuNaissance(): ?string
+    {
+        return $this->lieuNaissance;
+    }
+
+    public function setLieuNaissance(string $lieuNaissance): self
+    {
+        $this->lieuNaissance = $lieuNaissance;
+
+        return $this;
+    }
+
+    public function getNumero(): ?string
+    {
+        return $this->numero;
+    }
+
+    public function setNumero(string $numero): self
+    {
+        $this->numero = $numero;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Absence[]
+     */
+    public function getAbsences(): Collection
+    {
+        return $this->absences;
+    }
+
+    public function addAbsence(Absence $absence): self
+    {
+        if (!$this->absences->contains($absence)) {
+            $this->absences[] = $absence;
+            $absence->setBeneficiaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAbsence(Absence $absence): self
+    {
+        if ($this->absences->removeElement($absence)) {
+            // set the owning side to null (unless already changed)
+            if ($absence->getBeneficiaire() === $this) {
+                $absence->setBeneficiaire(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDateNaissance(): ?string
+    {
+        return $this->dateNaissance;
+    }
+
+    public function setDateNaissance(string $dateNaissance): self
+    {
+        $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+
+   
+
+   
 
     
+      
 }
