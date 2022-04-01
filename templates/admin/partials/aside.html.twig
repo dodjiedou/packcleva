@@ -1,0 +1,377 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="#" class="brand-link">
+              <img src="../../admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+              <span class="brand-text font-weight-light">Dashboard</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+              <!-- Sidebar user panel (optional) -->
+              <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                  <img src="../../admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                  <a href="#" class="d-block">EDOU Dodji</a>
+                </div>
+              </div>
+
+              <!-- Sidebar Menu -->
+              <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                  <!-- Add icons to the links using the .nav-icon class
+                       with font-awesome or any other icon font library -->
+
+
+                   <!--Beneficiaire-->
+
+                  <li class="nav-item menu-open">
+                    <a href="#" class="nav-link active">
+                      <i class="nav-icon fas fa-tachometer-alt"></i>
+                      <p>
+                        Bénéficiaire
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                        <a href="{{ path('creerbeneficiaire') }}" class="nav-link  ">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Enrégistrement </p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{{ path('list_beneficiaire') }}" class="nav-link ">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Liste  </p>
+                        </a>
+                      </li>
+                      
+                    </ul>
+                  </li>
+
+                   <!--e/ndBeneficiaire-->
+
+
+            {% if is_granted('ROLE_AGENTDESANTE') %}
+                <!--Sante-->
+              
+                  <li class="nav-item">
+                    <a href="#" class="nav-link ">
+                      <i class="nav-icon fas fa-wheelchair"></i>
+                      <p>
+                        Santé
+                        <i class="fas fa-angle-left right"></i>
+                        
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+
+                          <li class="nav-item">
+                          <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-syringe"></i>
+                            <p>
+                              Vaccination
+                              <i class="fas fa-angle-left right"></i>
+                        
+                            </p>
+                          </a>
+                          <ul class="nav nav-treeview">
+                        <!--<li class="nav-item">
+                        <a href="{{ path('vaccination') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Enregistrer un cas de vaccination </p>
+                        </a>
+                      </li>-->
+                      <li class="nav-item">
+                        <a href="{{ path('rapport_vaccination') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Rapport de vaccination</p>
+                        </a>
+                      </li>
+                          </ul>
+                        </li>
+                     </li>
+                     <li class="nav-item">
+                      <li class="nav-item">
+                          <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-procedures"></i>
+                            <p>
+                              Cas de maladie
+                              <i class="fas fa-angle-left right"></i>
+                            </p>
+                          </a>
+                          <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                              <a href="{{ path('contracter') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Enregistrer un cas de maladie</p>
+                              </a>
+                            </li>
+                             <li class="nav-item">
+                              <a href="{{ path('contracter_maladie') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Liste des bénéficiaires par cas de maladie</p>
+                              </a>
+                            </li>
+                            <!--<li class="nav-item">
+                              <a href="{{ path('consultation') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Consultations et soins médicaux  </p>
+                              </a>
+                            </li>-->
+                            <li class="nav-item">
+                              <a href="{{ path('rapport_general') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Rapport général</p>
+                              </a>
+                            </li>
+                            <li class="nav-item">
+                              <a href="{{ path('rapport_individuel') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Historique sanitaire </p>
+                              </a>
+                            </li>
+                          </ul>
+                        </li>
+                     </li>
+                    </ul>
+                  </li>
+
+                <!--/endSante-->
+
+                {% endif %}
+
+
+
+            {% if is_granted('ROLE_ASSISTANT') %}
+
+                <!--Activite-->
+
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-graduation-cap"></i>
+                      <p>
+                        Activités
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                        <a href="{{ path('classe') }}" class="nav-link">
+                          <i class="fas fa-school"></i>
+                          <p>Classes</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{{ path('list_cours') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Cours</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{{ path('show_culculum') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Culculum</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                                  <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-edit"></i>
+                                    <p>
+                                      Rapport de présence
+                                      <i class="right fas fa-angle-left"></i>
+                              </p>
+                            </a>
+                          <ul class="nav nav-treeview">
+                                  <li class="nav-item">
+                                  <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-graduation-cap"></i>
+                                    <p>
+                                      Niveau classes
+                                      <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                  </a>
+                                  <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                      <a href="{{path('absence_classe') }}" class="nav-link">
+                                      <i class="far fa-circle nav-icon"></i>
+                                           <p>Par Séance</p>
+                                      </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('absence_classe_date') }}" class="nav-link">
+                                          <i class="far fa-circle nav-icon"></i>
+                                          <p>par Date</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('absence_classe_periode') }}" class="nav-link">
+                                          <i class="far fa-circle nav-icon"></i>
+                                          <p>Par periode</p>
+                                        </a>
+                                    </li>
+                                  </ul>
+                                </li>
+
+                                 <li class="nav-item">
+                                  <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-graduation-cap"></i>
+                                    <p>
+                                      Niveau categories
+                                      <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                  </a>
+                                  <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                      <a href="{{ path('absence_categorie_date') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Par Date</p>
+                                      </a>
+                                    </li>
+                                    <li class="nav-item">
+                                      <a href="{{ path('absence_categorie_periode') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Par Période</p>
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </li> 
+                          </ul>
+                      </li>   
+                    </ul>
+                  </li>
+
+                 <!--/endActivite-->
+
+
+                  <!--kits-->
+
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-gift"></i>
+                      <p>
+                        Distribution des kits
+                        <i class="fas fa-angle-left right"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                        <a href="{{ path('critere') }}" class="nav-link">
+                          <i class="fas fa-archive nav-icon"></i>
+                          <p>Enrégistrement</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{{ path('cadeau_statistique') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Statistique</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+
+                   <!--/endkits-->
+
+
+                  <!--lettres-->
+
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                     <i class="nav-icon fas fa-mail-bulk"></i>
+                      <p>
+                        Lettre
+                        <i class="fas fa-angle-left right"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                        <a href="{{ path('create_lettre') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Enregistrement</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{{ path('liste_lettre') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Mes lettres</p>
+                        </a>
+                      
+                    </ul>
+                  </li>
+
+                  <!--/endlettres-->
+
+
+
+                  <!--visite-->
+                  
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-table"></i>
+                      <p>
+                       Visite
+                        <i class="fas fa-angle-left right"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                       
+                      <li class="nav-item">
+                        <a href="{{ path('create_visite') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Enregistrer une visite</p>
+                        </a>
+                      </li>
+                       
+                      <li class="nav-item">
+                        <a href="{{ path('liste_beneficiaire_visite') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Les visites</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <!--/endvisite-->
+
+
+
+
+                 <!--Sensibilisation-->
+
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-table"></i>
+                      <p>
+                      Sensibilisation
+                        <i class="fas fa-angle-left right"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                        <a href="{{ path('create_sensibilisation') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Enregistrer une sensibilisation</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{{ path('liste_sensibilisation') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Les sensibilisations</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <!--/endSensibilisation-->
+
+                  {% endif %}
+
+                </ul>
+              </nav>
+              <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+          </aside>

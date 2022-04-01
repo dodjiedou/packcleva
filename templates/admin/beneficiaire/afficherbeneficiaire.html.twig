@@ -47,7 +47,7 @@
                             <h4>Email &ensp;&emsp;&emsp;&emsp;&emsp;&emsp;: <strong>{{ benef.email }}</strong></h4>
                             
 
-                            <h4>Date de naissance &ensp;: <strong>{{ benef.dateNaissance}}</strong></h4>
+                            <h4>Date de naissance &ensp;: <strong>{{ benef.dateNaissance|date("d-m-Y")}}</strong></h4>
 
                             <h4>Lieu de naissance &ensp;: <strong>{{ benef.lieuNaissance}}</strong></h4>
                            
@@ -76,8 +76,7 @@
 
                             <h4>Rang Occupé &ensp;&emsp;&emsp;: <strong>{{ benef.rangOccupe }}</strong></h4>
                            
-
-                            <h4>Classe au CDE&ensp;&emsp;&emsp;: <strong>{{ benef.classeCde.nom  }}</strong></h4>
+                             
                             
 
                         </div>          

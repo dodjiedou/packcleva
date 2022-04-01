@@ -98,14 +98,14 @@
                    {% if tabAbsence[line][4]==1  %}
 
                     <td  class="text-center">
-                    <a href="#" class="btn btn-danger mb-2 btn-sm " role="button" title="Lien 1">  <i class="fas fa-trash"></i></a> </td>
+                    <a href="#" class="btn btn-info mb-2 btn-sm " role="button" title="Lien 1">  <i class="fas fa-edit"></i></a> </td>
 
                     <td class="text-center"><p>Oui</p></td>
 
                     {% else %}
 
                     <td  class="text-center">
-                    <a href="{{ path('affecter_absence', {"ids": seance.id,"idb": tabAbsence[line][5]}) }}" class="btn btn-danger mb-2 btn-sm " role="button" title="Lien 1">  <i class="fas fa-trash"></i></a> </td>
+                    <a href="{{ path('affecter_absence', {"ids": seance.id,"idb": tabAbsence[line][5]}) }}" class="btn btn-info mb-2 btn-sm " role="button" title="Lien 1">  <i class="fas fa-edit"></i></a> </td>
 
                     <td class="text-center"></td>
                     {% endif %}

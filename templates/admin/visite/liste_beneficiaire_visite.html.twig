@@ -59,7 +59,7 @@
 
                     <td class="">{{ beneficiaire.sexe }}</td>
 
-                    <td class="">{{beneficiaire.dateNaissance }}</td>
+                    <td class="">{{beneficiaire.dateNaissance |date("d-m-Y")}}</td>
 
                     <td class="">{{ beneficiaire.getAge(beneficiaire.dateNaissance) }}</td>
 

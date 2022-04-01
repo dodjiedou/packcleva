@@ -38,10 +38,10 @@
 							<p>{{ contracter.produitPrescrit}}</p>
 							
 							<h4>Début de l'hospitalisation</h4>
-							<p>{{ contracter.debutHospitalisation}}</p>
+							<p>{{ contracter.debutHospitalisation|date("d-m-Y")}}</p>
 							
 							<h4>Fin de l'hospitalisation</h4>
-							<p>{{ contracter.finHospitalisation}}</p>
+							<p>{{ contracter.finHospitalisation|date("d-m-Y")}}</p>
 
 							<h4>Montant des soins et analyses</h4>
 							<p>{{ contracter.montantSoin }}</p>

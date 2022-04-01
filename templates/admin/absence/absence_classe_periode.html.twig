@@ -84,9 +84,9 @@
 
                  {% for line,val1 in tabAbsent %}
                  <tr>
-                    <td class="">{{ tabAbsent[line][0]}}</td>
+                    <td class="">{{ tabAbsent[line][0]|date("d-m-Y")}}</td>
 
-                     <td class="">{{ tabAbsent[line][1]}}</td>
+                     <td class="">{{ tabAbsent[line][1]|date("d-m-Y")}}</td>
 
                    <td class="">{{ tabAbsent[line][2]}}</td>
 

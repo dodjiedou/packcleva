@@ -77,7 +77,7 @@
 
                     <td class="">{{ beneficiaireMalade.sexe }}</td>
 
-                    <td class="">{{beneficiaireMalade.dateNaissance }}</td>
+                    <td class="">{{beneficiaireMalade.dateNaissance|date("d-m-Y") }}</td>
 
                     <td class="">{{ beneficiaireMalade.getAge(beneficiaireMalade.dateNaissance) }}</td>
 
@@ -105,7 +105,7 @@
 
                     <td class="">{{beneficiaireNonMalade.sexe }}</td>
 
-                    <td class="">{{beneficiaireNonMalade.dateNaissance }}</td>
+                    <td class="">{{beneficiaireNonMalade.dateNaissance|date("d-m-Y") }}</td>
 
                     <td class="">{{beneficiaireNonMalade.getAge(beneficiaireNonMalade.dateNaissance) }}</td>
 

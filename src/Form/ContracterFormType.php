@@ -60,7 +60,7 @@ class ContracterFormType extends AbstractType
             ->add('diagnostique',TextareaType::class, [
                 'label' => "Diagnostique",
                 'required'=> false,
-                'mapped'=> false,
+                
                 ])
 
             ->add('produitPrescrit',TextareaType::class, [

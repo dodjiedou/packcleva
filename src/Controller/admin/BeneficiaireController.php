@@ -3,6 +3,7 @@
 namespace App\Controller\admin;
 
 use App\Entity\Personne;
+use App\Entity\PdfService;
 use App\Entity\Beneficiaire;
 use App\Entity\Categorie;
 use Symfony\Component\Form\Form;
@@ -14,6 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+//**
+ // * Require ROLE_ADMIN for *every* controller method in this class.
+  //*
+ // * @IsGranted("ROLE_COORDONNATEUR")
+  //*/
 
 
 
@@ -32,6 +40,10 @@ class BeneficiaireController extends AbstractController
      #[Route('/liste/beneficiaire', name: 'list_beneficiaire')]
      public function list(): Response
      {
+        //$this->denyAccessUnlessGranted('ROLE_COORDONNATEUR');
+
+    // or add an optional message - seen by developers
+    //$this->denyAccessUnlessGranted('ROLE_COORDONNATEUR', null, 'User tried to access a page without having ROLE_COORDONNATEUR');
         $beneficiaires = $this->getDoctrine()
              ->getRepository(Beneficiaire::class)->findAll();
          return $this->render('admin/beneficiaire/list_beneficiaire.html.twig',[
@@ -186,6 +198,28 @@ class BeneficiaireController extends AbstractController
         
              return $this->redirectToRoute('list_beneficiaire');
      }
+
+     #[Route('/download/pdf', name: 'download_pdf')]
+     public function download(): Response
+     {
+         $pdf= new PdfService(); 
+
+          $beneficiaires = $this->getDoctrine()
+             ->getRepository(Beneficiaire::class)->findAll();
+          $benef = $this->getDoctrine()
+             ->getRepository(Beneficiaire::class)->findOneBy(["id"=> 45]);
+         $html = $this->renderView('admin/beneficiaire/afficherbeneficiaire.html.twig', compact('benef'));
+         // $html = $this->render('admin/beneficiaire/afficherbeneficiaire.html.twig',[ 'beneficiaires' => $beneficiaires]);
+         $html=
+         $pdf->generateBinaryPdf($html);
+        // $pdf->showPdfFile($html);
+
+         return new Response('', 200, ['Content-Type' => 'application/pdf',]);
+
+        
+        
+     }
+
  }
 
 

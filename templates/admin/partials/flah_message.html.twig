@@ -1,0 +1,15 @@
+{% for type, messages in app.flashes %}
+
+	{% for message in messages %}
+
+		<div >
+
+			<p class=" text-center text-danger  mx-auto "  ><strong>{{message}}</sreong></p>
+
+		</div>
+
+	{% endfor %}
+
+{% endfor %}
+
+

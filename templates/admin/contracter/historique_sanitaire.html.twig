@@ -28,7 +28,7 @@
  <div class="px-4">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
        
-           Historique sanitaire du bénéficiaire {{beneficiaire .nom}} {{beneficiaire .prenom}} entre {{date1}} et {{date2}} 
+           Historique sanitaire du bénéficiaire {{beneficiaire .nom}} {{beneficiaire .prenom}} entre {{date1|date("d-m-Y")}} et {{date2|date("d-m-Y")}} 
                    
         </h2>
     </div>
@@ -76,7 +76,7 @@
                   <tr>
                     <td class="">{{contracter .maladie.nom }}</td>
 
-                    <td class="">{{contracter .date }}</td>
+                    <td class="">{{contracter .date|date("d-m-Y") }}</td>
 
                     <td class="">{{contracter .manifestationMaladie }}</td>
 
