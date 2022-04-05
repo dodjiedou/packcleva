@@ -8,6 +8,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\SensibilisationType;
 use App\Entity\Sensibilisation;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+/**
+  * Require ROLE_USER for *every* controller method in this class.
+  *
+  * @IsGranted("ROLE_USER")
+  */
 
 class SensibilisationController extends AbstractController
 {

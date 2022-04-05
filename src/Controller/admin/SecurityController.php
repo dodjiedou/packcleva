@@ -9,6 +9,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use app\Entity\User;
 use App\Form\UserType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+
+
 
 
 class SecurityController extends AbstractController

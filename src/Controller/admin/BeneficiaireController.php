@@ -17,11 +17,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-//**
- // * Require ROLE_ADMIN for *every* controller method in this class.
-  //*
- // * @IsGranted("ROLE_COORDONNATEUR")
-  //*/
+/**
+  * Require ROLE_USER for *every* controller method in this class.
+  *
+  * @IsGranted("ROLE_USER")
+  */
 
 
 
@@ -202,7 +202,7 @@ class BeneficiaireController extends AbstractController
      #[Route('/download/pdf', name: 'download_pdf')]
      public function download(): Response
      {
-         $pdf= new PdfService(); 
+         /*$pdf= new PdfService(); 
 
           $beneficiaires = $this->getDoctrine()
              ->getRepository(Beneficiaire::class)->findAll();
@@ -214,7 +214,12 @@ class BeneficiaireController extends AbstractController
          $pdf->generateBinaryPdf($html);
         // $pdf->showPdfFile($html);
 
-         return new Response('', 200, ['Content-Type' => 'application/pdf',]);
+         return new Response('', 200, ['Content-Type' => 'application/pdf',]);*/
+
+         $beneficiaires = $this->getDoctrine()
+             ->getRepository(Beneficiaire::class)->findAll();
+         return $this->render('admin/beneficiaire/print_beneficiaire_list.html.twig',[
+             'beneficiaires' => $beneficiaires]);
 
         
         

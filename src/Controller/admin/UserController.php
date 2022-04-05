@@ -5,10 +5,17 @@ namespace App\Controller\admin;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+/**
+  * Require ROLE_USER for *every* controller method in this class.
+  *
+  * @IsGranted("ROLE_USER")
+  */
 
 class UserController extends AbstractController
 {
-    #[Route('/user', name: 'user')]
+    #[Route('/utilisateur', name: 'utilisateur')]
     public function index(): Response
     {
         return $this->render('admin/user/index.html.twig', [

@@ -10,6 +10,14 @@ use App\Form\MaladieType;
 use App\Entity\Maladie;
 use app\Form\RapportType;
 use App\Entity\Contracter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+
+/**
+  * Require ROLE_USER for *every* controller method in this class.
+  *
+  * @IsGranted("ROLE_USER")
+  */
 
 
 class MaladieController extends AbstractController

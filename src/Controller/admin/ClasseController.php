@@ -29,6 +29,14 @@ use App\Entity\Absence;
 use App\Entity\Beneficiaire;
 use App\Entity\Categorie;
 use App\Form\FullClassType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+
+/**
+  * Require ROLE_USER for *every* controller method in this class.
+  *
+  * @IsGranted("ROLE_USER")
+  */
 
 class ClasseController extends AbstractController
 {

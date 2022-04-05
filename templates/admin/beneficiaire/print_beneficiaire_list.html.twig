@@ -1,0 +1,152 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}CLAVA | Download{% endblock %}
+
+{% block stylesheets %} 
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../admin/plugins/fontawesome-free/css/all.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../admin/dist/css/adminlte.min.css">
+{% endblock %}
+
+
+{% block wrapper %}
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="text-info m-0"> Bénéficiaire</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ path('admin') }}">Home</a></li>
+              <li class="breadcrumb-item active">beneficiaire</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+  {% endblock %}
+
+{% block body %}
+
+   
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Liste des bénéficiaire</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Numero</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Sexe</th>
+                    <th>Date de naissance</th>
+                    <th>Age</th>
+                    <th>Religion</th>
+                    <th>Nom du tuteur</th>
+                    <th>Rue/village</th>
+                    <th>Telephone</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                   {% for beneficiaire in beneficiaires %}
+
+                  <tr>
+
+                    <td >{{ beneficiaire.numero }}</td>
+
+                    <td>{{ beneficiaire.nom }} </td>
+
+                    <td>{{ beneficiaire.prenom }}</td>
+
+                    <td >{{ beneficiaire.sexe }}</td>
+
+                    <td >{{beneficiaire.dateNaissance |date("d-m-Y")}}</td>
+
+                    <td >{{ beneficiaire.getAge(beneficiaire.dateNaissance) }}</td>
+
+                    <td >{{ beneficiaire.religion }}</td>
+
+                    <td >{{ beneficiaire.nomTuteur }}</td>
+
+                    <td >{{ beneficiaire.adresse }}</td>
+
+                    <td >{{ beneficiaire.telephone }}</td>
+                    
+                  </tr>
+                {% endfor %}
+                  
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+   
+<!-- ./wrapper -->
+
+  {% endblock %}
+
+
+  {% block javascripts %}
+
+
+<!-- jQuery -->
+<script src="../../admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="../../admin/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../../admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../../admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="../../admin/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../../admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../../admin/plugins/jszip/jszip.min.js"></script>
+<script src="../../admin/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="../../admin/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="../../admin/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../../admin/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="../../admin/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../admin/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../admin/dist/js/demo.js"></script>
+<!-- Page specific script -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    
+  });
+</script>
+{% endblock %}
+

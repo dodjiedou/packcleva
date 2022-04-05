@@ -14,6 +14,14 @@ use App\Entity\Classe;
 use App\Entity\Categorie;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+/**
+  * Require ROLE_USER for *every* controller method in this class.
+  *
+  * @IsGranted("ROLE_USER")
+  */
+
 
 class RapportAbsenceController extends AbstractController
 {
